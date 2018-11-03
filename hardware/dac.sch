@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 9
+Sheet 7 9
 Title ""
 Date ""
 Rev ""
@@ -28,11 +28,12 @@ F 3 "" H 6700 3600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L symbols:AD9740ACPZ U?
+L tdr-rescue:AD9740ACPZ-symbols U?
 U 1 1 5BC36C50
 P 3800 1200
 AR Path="/5BC3F67C/5BC36C50" Ref="U?"  Part="1" 
 AR Path="/5BC349EC/5BC36C50" Ref="U?"  Part="1" 
+AR Path="/5BC36C50" Ref="U?"  Part="1" 
 F 0 "U?" H 5043 1587 60  0000 C CNN
 F 1 "AD9740ACPZ" H 5043 1481 60  0000 C CNN
 F 2 "CP_32_2" H 4800 1540 60  0001 C CNN
@@ -1036,7 +1037,7 @@ $EndComp
 Wire Wire Line
 	7150 2650 7150 2500
 $Comp
-L synth_lib:ADA4817-1 U?
+L tdr-rescue:ADA4817-1-synth_lib U?
 U 1 1 5BC6297A
 P 8850 1750
 F 0 "U?" H 8850 2165 50  0000 C CNN

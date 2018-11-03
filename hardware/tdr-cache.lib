@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector:Barrel_Jack_Switch
+# Connector_Barrel_Jack_Switch
 #
-DEF Connector:Barrel_Jack_Switch J 0 20 Y N 1 F N
+DEF Connector_Barrel_Jack_Switch J 0 20 Y N 1 F N
 F0 "J" 0 210 50 H V C CNN
-F1 "Connector:Barrel_Jack_Switch" 0 -200 50 H V C CNN
+F1 "Connector_Barrel_Jack_Switch" 0 -200 50 H V C CNN
 F2 "" 50 -40 50 H I C CNN
 F3 "" 50 -40 50 H I C CNN
 $FPLIST
@@ -26,11 +26,11 @@ X ~ 3 300 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector:Conn_Coaxial
+# Connector_Conn_Coaxial
 #
-DEF Connector:Conn_Coaxial J 0 40 Y N 1 F N
+DEF Connector_Conn_Coaxial J 0 40 Y N 1 F N
 F0 "J" 10 120 50 H V C CNN
-F1 "Connector:Conn_Coaxial" 115 0 50 V V C CNN
+F1 "Connector_Conn_Coaxial" 115 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -51,11 +51,30 @@ X Ext 2 0 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector:TestPoint
+# Connector_Generic_Conn_02x01
 #
-DEF Connector:TestPoint TP 0 30 N N 1 F N
+DEF Connector_Generic_Conn_02x01 J 0 40 Y N 1 F N
+F0 "J" 50 100 50 H V C CNN
+F1 "Connector_Generic_Conn_02x01" 50 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_2x??_*
+$ENDFPLIST
+DRAW
+S -50 5 0 -5 1 1 6 N
+S -50 50 150 -50 1 1 10 f
+S 150 5 100 -5 1 1 6 N
+X Pin_1 1 -200 0 150 R 50 50 1 1 P
+X Pin_2 2 300 0 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Connector_TestPoint
+#
+DEF Connector_TestPoint TP 0 30 N N 1 F N
 F0 "TP" 0 270 50 H V C CNN
-F1 "Connector:TestPoint" 0 200 50 H V C CNN
+F1 "Connector_TestPoint" 0 200 50 H V C CNN
 F2 "" 200 0 50 H I C CNN
 F3 "" 200 0 50 H I C CNN
 $FPLIST
@@ -68,11 +87,11 @@ X 1 1 0 0 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector:USB_B_Micro
+# Connector_USB_B_Micro
 #
-DEF Connector:USB_B_Micro J 0 40 Y Y 1 F N
+DEF Connector_USB_B_Micro J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "Connector:USB_B_Micro" -200 350 50 H V L CNN
+F1 "Connector_USB_B_Micro" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 ALIAS USB_B_Mini
@@ -104,30 +123,11 @@ X Shield 6 -100 -400 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic:Conn_02x01
+# Device_CP_Small
 #
-DEF Connector_Generic:Conn_02x01 J 0 40 Y N 1 F N
-F0 "J" 50 100 50 H V C CNN
-F1 "Connector_Generic:Conn_02x01" 50 -100 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_2x??_*
-$ENDFPLIST
-DRAW
-S -50 5 0 -5 1 1 6 N
-S -50 50 150 -50 1 1 10 f
-S 150 5 100 -5 1 1 6 N
-X Pin_1 1 -200 0 150 R 50 50 1 1 P
-X Pin_2 2 300 0 150 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device:CP_Small
-#
-DEF Device:CP_Small C 0 10 N N 1 F N
+DEF Device_CP_Small C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "Device:CP_Small" 10 -80 50 H V L CNN
+F1 "Device_CP_Small" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -143,11 +143,11 @@ X ~ 2 0 -100 73 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:C_Small
+# Device_C_Small
 #
-DEF Device:C_Small C 0 10 N N 1 F N
+DEF Device_C_Small C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "Device:C_Small" 10 -80 50 H V L CNN
+F1 "Device_C_Small" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -161,11 +161,11 @@ X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:L_Small
+# Device_L_Small
 #
-DEF Device:L_Small L 0 10 N N 1 F N
+DEF Device_L_Small L 0 10 N N 1 F N
 F0 "L" 30 40 50 H V L CNN
-F1 "Device:L_Small" 30 -40 50 H V L CNN
+F1 "Device_L_Small" 30 -40 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -184,11 +184,11 @@ X ~ 2 0 -100 20 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:R_Pack04
+# Device_R_Pack04
 #
-DEF Device:R_Pack04 RN 0 0 Y N 1 F N
+DEF Device_R_Pack04 RN 0 0 Y N 1 F N
 F0 "RN" -300 0 50 V V C CNN
-F1 "Device:R_Pack04" 200 0 50 V V C CNN
+F1 "Device_R_Pack04" 200 0 50 V V C CNN
 F2 "" 275 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -220,11 +220,11 @@ X R1.2 8 -200 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:R_Small
+# Device_R_Small
 #
-DEF Device:R_Small R 0 10 N N 1 F N
+DEF Device_R_Small R 0 10 N N 1 F N
 F0 "R" 30 20 50 H V L CNN
-F1 "Device:R_Small" 30 -40 50 H V L CNN
+F1 "Device_R_Small" 30 -40 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -237,11 +237,11 @@ X ~ 2 0 -100 30 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# power:+1V2
+# power_+1V2
 #
-DEF power:+1V2 #PWR 0 0 Y Y 1 F P
+DEF power_+1V2 #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+1V2" 0 140 50 H V C CNN
+F1 "power_+1V2" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -252,11 +252,26 @@ X +1V2 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:+2V5
+# power_+1V35
 #
-DEF power:+2V5 #PWR 0 0 Y Y 1 F P
+DEF power_+1V35 #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+2V5" 0 140 50 H V C CNN
+F1 "power_+1V35" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +1V35 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power_+2V5
+#
+DEF power_+2V5 #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "power_+2V5" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -267,11 +282,11 @@ X +2V5 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:+3.3VP
+# power_+3.3VP
 #
-DEF power:+3.3VP #PWR 0 0 Y Y 1 F P
+DEF power_+3.3VP #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 150 -50 50 H I C CNN
-F1 "power:+3.3VP" 0 100 50 H V C CNN
+F1 "power_+3.3VP" 0 100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -281,11 +296,11 @@ X +3.3VP 1 0 0 0 U 50 50 0 0 W N
 ENDDRAW
 ENDDEF
 #
-# power:+3V3
+# power_+3V3
 #
-DEF power:+3V3 #PWR 0 0 Y Y 1 F P
+DEF power_+3V3 #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+3V3" 0 140 50 H V C CNN
+F1 "power_+3V3" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 ALIAS +3.3V
@@ -297,11 +312,11 @@ X +3V3 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:+5VA
+# power_+5VA
 #
-DEF power:+5VA #PWR 0 0 Y Y 1 F P
+DEF power_+5VA #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+5VA" 0 140 50 H V C CNN
+F1 "power_+5VA" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -312,11 +327,11 @@ X +5VA 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:-5VA
+# power_-5VA
 #
-DEF power:-5VA #PWR 0 0 Y Y 1 F P
+DEF power_-5VA #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 100 50 H I C CNN
-F1 "power:-5VA" 0 150 50 H V C CNN
+F1 "power_-5VA" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -325,11 +340,11 @@ X -5VA 1 0 0 0 U 50 50 0 0 W N
 ENDDRAW
 ENDDEF
 #
-# power:GND
+# power_GND
 #
-DEF power:GND #PWR 0 0 Y Y 1 F P
+DEF power_GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power:GND" 0 -150 50 H V C CNN
+F1 "power_GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -338,11 +353,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:VPP
+# power_VPP
 #
-DEF power:VPP #PWR 0 0 Y Y 1 F P
+DEF power_VPP #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:VPP" 0 150 50 H V C CNN
+F1 "power_VPP" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -353,11 +368,11 @@ X VPP 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# symbols:AD9740ACPZ
+# tdr-rescue_AD9740ACPZ-symbols
 #
-DEF symbols:AD9740ACPZ U 0 10 Y Y 1 F N
+DEF tdr-rescue_AD9740ACPZ-symbols U 0 10 Y Y 1 F N
 F0 "U" 0 0 60 H V C CNN
-F1 "symbols:AD9740ACPZ" 0 0 60 H V C CNN
+F1 "tdr-rescue_AD9740ACPZ-symbols" 0 0 60 H V C CNN
 F2 "CP_32_2" 0 0 60 H I C CNN
 F3 "" 0 0 60 H V C CNN
 $FPLIST
@@ -406,11 +421,11 @@ X NC 9 2800 -1700 300 L 59 59 1 0 U
 ENDDRAW
 ENDDEF
 #
-# synth_lib:ADA4817-1
+# tdr-rescue_ADA4817-1-synth_lib
 #
-DEF synth_lib:ADA4817-1 U 0 40 Y Y 1 F N
+DEF tdr-rescue_ADA4817-1-synth_lib U 0 40 Y Y 1 F N
 F0 "U" -350 300 50 H V C CNN
-F1 "synth_lib:ADA4817-1" -200 400 50 H V C CNN
+F1 "tdr-rescue_ADA4817-1-synth_lib" -200 400 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -427,11 +442,11 @@ X EP 9 0 -450 200 U 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# synth_lib:ADCMP580
+# tdr-rescue_ADCMP580-synth_lib
 #
-DEF synth_lib:ADCMP580 U 0 40 Y Y 1 F N
+DEF tdr-rescue_ADCMP580-synth_lib U 0 40 Y Y 1 F N
 F0 "U" -900 500 50 H V C CNN
-F1 "synth_lib:ADCMP580" -750 600 50 H V C CNN
+F1 "tdr-rescue_ADCMP580-synth_lib" -750 600 50 H V C CNN
 F2 "" -900 500 50 H I C CNN
 F3 "" -900 500 50 H I C CNN
 DRAW
@@ -456,11 +471,11 @@ X GND 9 650 -150 200 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# synth_lib:CDCLVP1204
+# tdr-rescue_CDCLVP1204-synth_lib
 #
-DEF synth_lib:CDCLVP1204 U 0 40 Y Y 1 F N
+DEF tdr-rescue_CDCLVP1204-synth_lib U 0 40 Y Y 1 F N
 F0 "U" -650 700 50 H V C CNN
-F1 "synth_lib:CDCLVP1204" -450 800 50 H V C CNN
+F1 "tdr-rescue_CDCLVP1204-synth_lib" -450 800 50 H V C CNN
 F2 "" -600 800 50 H I C CNN
 F3 "" -600 800 50 H I C CNN
 DRAW
@@ -485,11 +500,11 @@ X OUTP0 9 550 500 200 L 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
-# synth_lib:DV75D_TCXO
+# tdr-rescue_DV75D_TCXO-synth_lib
 #
-DEF synth_lib:DV75D_TCXO X 0 40 Y Y 1 F N
+DEF tdr-rescue_DV75D_TCXO-synth_lib X 0 40 Y Y 1 F N
 F0 "X" -650 400 50 H V C CNN
-F1 "synth_lib:DV75D_TCXO" -450 300 50 H V C CNN
+F1 "tdr-rescue_DV75D_TCXO-synth_lib" -450 300 50 H V C CNN
 F2 "" -650 400 50 H I C CNN
 F3 "" -650 400 50 H I C CNN
 DRAW
@@ -502,11 +517,11 @@ X V+ 4 0 300 100 D 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# synth_lib:FT2232H
+# tdr-rescue_FT2232H-synth_lib
 #
-DEF synth_lib:FT2232H U 0 40 Y Y 1 F N
+DEF tdr-rescue_FT2232H-synth_lib U 0 40 Y Y 1 F N
 F0 "U" -1050 2100 50 H V L CNN
-F1 "synth_lib:FT2232H" 750 2100 50 H V L CNN
+F1 "tdr-rescue_FT2232H-synth_lib" 750 2100 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -583,11 +598,11 @@ X VPLL 9 -400 2200 150 D 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# synth_lib:ICE40UP5K-SG48ITR
+# tdr-rescue_ICE40UP5K-SG48ITR-synth_lib
 #
-DEF synth_lib:ICE40UP5K-SG48ITR U 0 20 Y Y 4 L N
+DEF tdr-rescue_ICE40UP5K-SG48ITR-synth_lib U 0 20 Y Y 4 L N
 F0 "U" -350 -1150 50 H V C CNN
-F1 "synth_lib:ICE40UP5K-SG48ITR" 0 -1250 50 H V C CNN
+F1 "tdr-rescue_ICE40UP5K-SG48ITR-synth_lib" 0 -1250 50 H V C CNN
 F2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" 0 -1350 50 H I C CNN
 F3 "" -400 1000 50 H I C CNN
 $FPLIST
@@ -650,56 +665,11 @@ X VCC 5 -50 400 100 D 50 50 4 1 W
 ENDDRAW
 ENDDEF
 #
-# synth_lib:MC100EP195B
+# tdr-rescue_NB6L295MMNG-synth_lib
 #
-DEF synth_lib:MC100EP195B U 0 40 Y Y 1 F N
-F0 "U" -1100 650 50 H V C CNN
-F1 "synth_lib:MC100EP195B" -900 750 50 H V C CNN
-F2 "" -650 650 50 H I C CNN
-F3 "" -650 650 50 H I C CNN
-DRAW
-S -600 600 600 -600 0 1 0 N
-X D8 1 -800 350 200 R 50 50 1 1 I
-X LEN 10 -250 -800 200 U 50 50 1 1 I
-X SETMIN 11 -150 -800 200 U 50 50 1 1 I
-X SETMAX 12 -50 -800 200 U 50 50 1 1 I
-X Vcc 13 50 -800 200 U 50 50 1 1 W
-X ~CASCADE 14 150 -800 200 U 50 50 1 1 O
-X CASCADE 15 250 -800 200 U 50 50 1 1 O
-X ~EN 16 350 -800 200 U 50 50 1 1 I
-X NC 17 800 -350 200 L 50 50 1 1 I
-X Vcc 18 800 -250 200 L 50 50 1 1 W
-X Vcc 19 800 -150 200 L 50 50 1 1 W
-X D9 2 -800 250 200 R 50 50 1 1 I
-X ~Q 20 800 -50 200 L 50 50 1 1 O
-X Q 21 800 50 200 L 50 50 1 1 O
-X Vcc 22 800 150 200 L 50 50 1 1 W
-X D0 23 800 250 200 L 50 50 1 1 I
-X Vee 24 800 350 200 L 50 50 1 1 W
-X D1 25 350 800 200 D 50 50 1 1 I
-X D2 26 250 800 200 D 50 50 1 1 I
-X D3 27 150 800 200 D 50 50 1 1 I
-X Vee 28 50 800 200 D 50 50 1 1 I
-X D4 29 -50 800 200 D 50 50 1 1 I
-X D10 3 -800 150 200 R 50 50 1 1 I
-X D5 30 -150 800 200 D 50 50 1 1 I
-X D6 31 -250 800 200 D 50 50 1 1 I
-X D7 32 -350 800 200 D 50 50 1 1 I
-X EP 33 450 -800 200 U 50 50 1 1 I
-X IN 4 -800 50 200 R 50 50 1 1 I
-X ~IN 5 -800 -50 200 R 50 50 1 1 I
-X Vbb 6 -800 -150 200 R 50 50 1 1 W
-X Vef 7 -800 -250 200 R 50 50 1 1 W
-X Vcf 8 -800 -350 200 R 50 50 1 1 W
-X Vee 9 -350 -800 200 U 50 50 1 1 W
-ENDDRAW
-ENDDEF
-#
-# synth_lib:NB6L295MMNG
-#
-DEF synth_lib:NB6L295MMNG U 0 40 Y Y 1 F N
+DEF tdr-rescue_NB6L295MMNG-synth_lib U 0 40 Y Y 1 F N
 F0 "U" -1050 700 50 H V C CNN
-F1 "synth_lib:NB6L295MMNG" -850 800 50 H V C CNN
+F1 "tdr-rescue_NB6L295MMNG-synth_lib" -850 800 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -732,11 +702,11 @@ X ~IN1 9 -50 -650 100 U 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# synth_lib:SY89321L
+# tdr-rescue_SY89321L-synth_lib
 #
-DEF synth_lib:SY89321L U 0 40 Y Y 1 F N
+DEF tdr-rescue_SY89321L-synth_lib U 0 40 Y Y 1 F N
 F0 "U" -400 350 50 H V C CNN
-F1 "synth_lib:SY89321L" -250 450 50 H V C CNN
+F1 "tdr-rescue_SY89321L-synth_lib" -250 450 50 H V C CNN
 F2 "" -100 0 50 H I C CNN
 F3 "" -100 0 50 H I C CNN
 DRAW
@@ -753,24 +723,35 @@ X GND 9 0 -500 200 U 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# synth_lib:SY89329V
+# tdr_ICS853S057I
 #
-DEF synth_lib:SY89329V U 0 40 Y Y 1 F N
-F0 "U" -400 350 50 H V C CNN
-F1 "synth_lib:SY89329V" -250 450 50 H V C CNN
-F2 "" -100 0 50 H I C CNN
-F3 "" -100 0 50 H I C CNN
+DEF tdr_ICS853S057I U 0 40 Y Y 1 F N
+F0 "U" -500 650 50 H V C CNN
+F1 "tdr_ICS853S057I" -300 750 50 H V C CNN
+F2 "" -400 550 50 H I C CNN
+F3 "" -400 550 50 H I C CNN
 DRAW
-S -250 250 250 -300 0 1 0 N
-X NC 1 -450 150 200 R 50 50 1 1 N
-X Q 2 -450 50 200 R 50 50 1 1 O
-X ~Q 3 -450 -50 200 R 50 50 1 1 O
-X NC 4 -450 -150 200 R 50 50 1 1 N
-X VEE 5 450 -150 200 L 50 50 1 1 W
-X NC 6 450 -50 200 L 50 50 1 1 N
-X IN 7 450 50 200 L 50 50 1 1 I
-X Vcc 8 450 150 200 L 50 50 1 1 W
-X GND 9 0 -500 200 U 50 50 1 1 W
+S -300 550 300 -550 0 1 0 N
+X Vcc 1 -500 450 200 R 50 50 1 1 W
+X Vee 10 -500 -450 200 R 50 50 1 1 W
+X Vee 11 500 -450 200 L 50 50 1 1 W
+X Vbb1 12 500 -250 200 L 50 50 1 1 W
+X Vbb2 12 500 -350 200 L 50 50 1 1 W
+X Vcc 12 500 -150 200 L 50 50 1 1 W
+X nQ 15 500 -50 200 L 50 50 1 1 O
+X Q 16 500 50 200 L 50 50 1 1 O
+X Vcc 17 500 150 200 L 50 50 1 1 W
+X SEL0 18 500 250 200 L 50 50 1 1 I
+X SEL1 19 500 350 200 L 50 50 1 1 I
+X CLK0 2 -500 350 200 R 50 50 1 1 I
+X Vcc 20 500 450 200 L 50 50 1 1 W
+X ~CLK0 3 -500 250 200 R 50 50 1 1 I
+X CLK1 4 -500 150 200 R 50 50 1 1 I
+X ~CLK1 5 -500 50 200 R 50 50 1 1 I
+X CLK2 6 -500 -50 200 R 50 50 1 1 I
+X ~CLK2 7 -500 -150 200 R 50 50 1 1 I
+X CLK3 8 -500 -250 200 R 50 50 1 1 I
+X ~CLK3 9 -500 -350 200 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #

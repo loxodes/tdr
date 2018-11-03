@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L synth_lib:ADCMP580 U?
+L tdr-rescue:ADCMP580-synth_lib U?
 U 1 1 5BC42930
 P 5200 3300
 F 0 "U?" H 4500 3900 50  0000 L CNN
@@ -325,7 +325,7 @@ Wire Wire Line
 Wire Wire Line
 	5250 3950 5250 4600
 $Comp
-L synth_lib:SY89321L U?
+L tdr-rescue:SY89321L-synth_lib U?
 U 1 1 5BC3E45C
 P 8650 3300
 F 0 "U?" H 8650 3715 50  0000 C CNN

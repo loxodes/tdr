@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 9 9
+Sheet 6 9
 Title ""
 Date ""
 Rev ""
@@ -14,119 +14,42 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 9700 3650 2    50   Output ~ 0
-D0_PULSE
-Text HLabel 9700 3750 2    50   Output ~ 0
-D1_PULSE
-Text HLabel 9700 3850 2    50   Output ~ 0
-D2_PULSE
-Text HLabel 7000 6950 2    50   Output ~ 0
-D3_PULSE
-Text HLabel 7000 7250 2    50   Output ~ 0
-D4_PULSE
-Text HLabel 7000 7350 2    50   Output ~ 0
-D5_PULSE
-Text HLabel 9700 4250 2    50   Output ~ 0
-D6_PULSE
-Text HLabel 9700 4350 2    50   Output ~ 0
-D7_PULSE
-Text HLabel 9700 4450 2    50   Output ~ 0
-D8_PULSE
-Text HLabel 9700 4550 2    50   Output ~ 0
-D9_PULSE
-Text HLabel 6550 1350 2    50   Output ~ 0
-D0_SAMPLE
-Text HLabel 6550 1450 2    50   Output ~ 0
-D1_SAMPLE
-Text HLabel 6550 1550 2    50   Output ~ 0
-D2_SAMPLE
-Text HLabel 6550 1650 2    50   Output ~ 0
-D3_SAMPLE
-Text HLabel 6550 1750 2    50   Output ~ 0
-D4_SAMPLE
-Text HLabel 6550 1850 2    50   Output ~ 0
-D5_SAMPLE
-Text HLabel 6550 1950 2    50   Output ~ 0
-D6_SAMPLE
-Text HLabel 6550 2050 2    50   Output ~ 0
-D7_SAMPLE
-Text HLabel 6550 2250 2    50   Output ~ 0
-D8_SAMPLE
-Text HLabel 6550 2350 2    50   Output ~ 0
-D9_SAMPLE
-Text HLabel 6550 2450 2    50   Output ~ 0
+Text HLabel 6650 2400 2    50   Output ~ 0
 D0_DAC
-Text HLabel 6550 2550 2    50   Output ~ 0
+Text HLabel 6650 2500 2    50   Output ~ 0
 D1_DAC
-Text HLabel 6550 2650 2    50   Output ~ 0
+Text HLabel 6650 2600 2    50   Output ~ 0
 D2_DAC
-Text HLabel 6650 4050 2    50   Output ~ 0
+Text HLabel 6750 5350 2    50   Output ~ 0
 D3_DAC
-Text HLabel 6650 4150 2    50   Output ~ 0
+Text HLabel 6750 5450 2    50   Output ~ 0
 D4_DAC
-Text HLabel 6650 4250 2    50   Output ~ 0
+Text HLabel 6750 5550 2    50   Output ~ 0
 D5_DAC
-Text HLabel 6650 4350 2    50   Output ~ 0
+Text HLabel 6750 5650 2    50   Output ~ 0
 D6_DAC
-Text HLabel 6650 4450 2    50   Output ~ 0
+Text HLabel 6750 5750 2    50   Output ~ 0
 D7_DAC
-Text HLabel 6650 4550 2    50   Output ~ 0
+Text HLabel 6750 5850 2    50   Output ~ 0
 D8_DAC
-Text HLabel 6650 4650 2    50   Output ~ 0
+Text HLabel 6750 5950 2    50   Output ~ 0
 D9_DAC
-Text HLabel 7000 6650 2    50   Input ~ 0
+Text HLabel 7000 8500 2    50   Input ~ 0
 DAC_SLEEP
-Text HLabel 7000 6750 2    50   Input ~ 0
-PULSE_LATCH
-Text HLabel 7000 7150 2    50   Input ~ 0
-SAMPLE_LATCH
-Text HLabel 6550 2750 2    50   Input ~ 0
-~SAMPLE_EN
-Text HLabel 6550 2850 2    50   Input ~ 0
-~PULSE_EN
-Text HLabel 6650 4750 2    50   Input ~ 0
+Text HLabel 6750 6050 2    50   Input ~ 0
 COMPARATOR_INPUT
-Text HLabel 6550 2950 2    50   Output ~ 0
+Text HLabel 6700 3600 2    50   Output ~ 0
 REF_CLK_SEL
-Text HLabel 7000 6550 2    50   Output ~ 0
+Text HLabel 7000 8400 2    50   Output ~ 0
 UART_TX
-Text HLabel 7000 6450 2    50   Input ~ 0
+Text HLabel 7000 8300 2    50   Input ~ 0
 UART_RX
-$Comp
-L power:+2V5 #PWR?
-U 1 1 5BDDD64D
-P 3350 1500
-F 0 "#PWR?" H 3350 1350 50  0001 C CNN
-F 1 "+2V5" H 3365 1673 50  0000 C CNN
-F 2 "" H 3350 1500 50  0001 C CNN
-F 3 "" H 3350 1500 50  0001 C CNN
-	1    3350 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BDDD6BE
-P 3650 1400
-F 0 "#PWR?" H 3650 1250 50  0001 C CNN
-F 1 "+3V3" H 3665 1573 50  0000 C CNN
-F 2 "" H 3650 1400 50  0001 C CNN
-F 3 "" H 3650 1400 50  0001 C CNN
-	1    3650 1400
-	1    0    0    -1  
-$EndComp
-Text HLabel 6550 2150 2    50   Input ~ 0
+Text HLabel 6700 2800 2    50   Input ~ 0
 FPGA_CLK
-Text Notes 7050 2200 0    50   ~ 0
+Text Notes 7200 2850 0    50   ~ 0
 TERMINATE FOR PECL
-NoConn ~ 9700 3650
-NoConn ~ 9700 3750
-NoConn ~ 9700 3850
-NoConn ~ 9700 4250
-NoConn ~ 9700 4350
-NoConn ~ 9700 4450
-NoConn ~ 9700 4550
 $Comp
-L synth_lib:ICE40UP5K-SG48ITR U?
+L tdr-rescue:ICE40UP5K-SG48ITR-synth_lib U?
 U 4 1 5BC86E04
 P 2400 10250
 F 0 "U?" H 2680 10296 50  0000 L CNN
@@ -137,36 +60,36 @@ F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 2000 11250 50
 	-1   0    0    -1  
 $EndComp
 $Comp
-L synth_lib:ICE40UP5K-SG48ITR U?
+L tdr-rescue:ICE40UP5K-SG48ITR-synth_lib U?
 U 3 1 5BC86E98
-P 6000 4250
-F 0 "U?" H 6330 4352 50  0000 L CNN
-F 1 "ICE40UP5K-SG48ITR" H 6330 4261 50  0000 L CNN
-F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 6000 2900 50  0001 C CNN
-F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 5600 5250 50  0001 C CNN
-	3    6000 4250
+P 6100 5550
+F 0 "U?" H 6430 5652 50  0000 L CNN
+F 1 "ICE40UP5K-SG48ITR" H 6430 5561 50  0000 L CNN
+F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 6100 4200 50  0001 C CNN
+F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 5700 6550 50  0001 C CNN
+	3    6100 5550
 	-1   0    0    -1  
 $EndComp
 $Comp
-L synth_lib:ICE40UP5K-SG48ITR U?
+L tdr-rescue:ICE40UP5K-SG48ITR-synth_lib U?
 U 2 1 5BC86F41
-P 6150 6850
-F 0 "U?" H 6150 5776 50  0000 C CNN
-F 1 "ICE40UP5K-SG48ITR" H 6150 5685 50  0000 C CNN
-F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 6150 5500 50  0001 C CNN
-F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 5750 7850 50  0001 C CNN
-	2    6150 6850
+P 6150 8700
+F 0 "U?" H 6150 7626 50  0000 C CNN
+F 1 "ICE40UP5K-SG48ITR" H 6150 7535 50  0000 C CNN
+F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 6150 7350 50  0001 C CNN
+F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 5750 9700 50  0001 C CNN
+	2    6150 8700
 	-1   0    0    -1  
 $EndComp
 $Comp
-L synth_lib:ICE40UP5K-SG48ITR U?
+L tdr-rescue:ICE40UP5K-SG48ITR-synth_lib U?
 U 1 1 5BC86FC5
-P 5950 1950
-F 0 "U?" H 6280 2002 50  0000 L CNN
-F 1 "ICE40UP5K-SG48ITR" H 6280 1911 50  0000 L CNN
-F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 5950 600 50  0001 C CNN
-F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 5550 2950 50  0001 C CNN
-	1    5950 1950
+P 6100 2600
+F 0 "U?" H 6430 2652 50  0000 L CNN
+F 1 "ICE40UP5K-SG48ITR" H 6430 2561 50  0000 L CNN
+F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 6100 1250 50  0001 C CNN
+F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 5700 3600 50  0001 C CNN
+	1    6100 2600
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -514,185 +437,406 @@ Wire Wire Line
 	2800 8450 2450 8450
 Wire Wire Line
 	2450 8450 2450 9850
-Text HLabel 7000 7650 2    50   Input ~ 0
+Text HLabel 7000 9500 2    50   Input ~ 0
 ICE_SCK
-Text HLabel 7000 7550 2    50   Input ~ 0
+Text HLabel 7000 9400 2    50   Input ~ 0
 ICE_SI
 Wire Wire Line
-	7000 7650 6650 7650
+	7000 9500 6650 9500
 Wire Wire Line
-	6650 7550 7000 7550
-Text HLabel 7000 7750 2    50   Input ~ 0
+	6650 9400 7000 9400
+Text HLabel 7000 9600 2    50   Input ~ 0
 ICE_SS
 Wire Wire Line
-	7000 7750 6650 7750
-Text HLabel 7000 7450 2    50   Input ~ 0
+	7000 9600 6650 9600
+Text HLabel 7000 9300 2    50   Input ~ 0
 ICE_SO
 Wire Wire Line
-	7000 7450 6650 7450
-Text HLabel 7000 6150 2    50   Input ~ 0
+	7000 9300 6650 9300
+Text HLabel 7000 8000 2    50   Input ~ 0
 ICE_~RESET
 Wire Wire Line
-	7000 6150 6900 6150
-Text HLabel 5300 6150 0    50   Input ~ 0
+	7000 8000 6900 8000
+Text HLabel 5300 8000 0    50   Input ~ 0
 ICE_DONE
 $Comp
 L Device:R_Small R?
 U 1 1 5BC9BEA7
-P 6900 5850
-F 0 "R?" H 6750 5900 50  0000 L CNN
-F 1 "R_Small" H 6550 5800 50  0000 L CNN
-F 2 "" H 6900 5850 50  0001 C CNN
-F 3 "~" H 6900 5850 50  0001 C CNN
-	1    6900 5850
+P 6900 7700
+F 0 "R?" H 6750 7750 50  0000 L CNN
+F 1 "R_Small" H 6550 7650 50  0000 L CNN
+F 2 "" H 6900 7700 50  0001 C CNN
+F 3 "~" H 6900 7700 50  0001 C CNN
+	1    6900 7700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3.3VP #PWR?
 U 1 1 5BC9C08F
-P 6900 5700
-F 0 "#PWR?" H 7050 5650 50  0001 C CNN
-F 1 "+3.3VP" H 6920 5843 50  0000 C CNN
-F 2 "" H 6900 5700 50  0001 C CNN
-F 3 "" H 6900 5700 50  0001 C CNN
-	1    6900 5700
+P 6900 7550
+F 0 "#PWR?" H 7050 7500 50  0001 C CNN
+F 1 "+3.3VP" H 6920 7693 50  0000 C CNN
+F 2 "" H 6900 7550 50  0001 C CNN
+F 3 "" H 6900 7550 50  0001 C CNN
+	1    6900 7550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6900 5750 6900 5700
+	6900 7600 6900 7550
 Wire Wire Line
-	6900 5950 6900 6150
-Connection ~ 6900 6150
+	6900 7800 6900 8000
+Connection ~ 6900 8000
 Wire Wire Line
-	6900 6150 6650 6150
+	6900 8000 6650 8000
 $Comp
 L Device:R_Small R?
 U 1 1 5BC9D34F
-P 5450 5850
-F 0 "R?" H 5300 5900 50  0000 L CNN
-F 1 "R_Small" H 5100 5800 50  0000 L CNN
-F 2 "" H 5450 5850 50  0001 C CNN
-F 3 "~" H 5450 5850 50  0001 C CNN
-	1    5450 5850
+P 5450 7700
+F 0 "R?" H 5300 7750 50  0000 L CNN
+F 1 "R_Small" H 5100 7650 50  0000 L CNN
+F 2 "" H 5450 7700 50  0001 C CNN
+F 3 "~" H 5450 7700 50  0001 C CNN
+	1    5450 7700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3.3VP #PWR?
 U 1 1 5BC9D3B1
-P 5450 5700
-F 0 "#PWR?" H 5600 5650 50  0001 C CNN
-F 1 "+3.3VP" H 5470 5843 50  0000 C CNN
-F 2 "" H 5450 5700 50  0001 C CNN
-F 3 "" H 5450 5700 50  0001 C CNN
-	1    5450 5700
+P 5450 7550
+F 0 "#PWR?" H 5600 7500 50  0001 C CNN
+F 1 "+3.3VP" H 5470 7693 50  0000 C CNN
+F 2 "" H 5450 7550 50  0001 C CNN
+F 3 "" H 5450 7550 50  0001 C CNN
+	1    5450 7550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5450 5700 5450 5750
+	5450 7550 5450 7600
 Wire Wire Line
-	5450 5950 5450 6150
+	5450 7800 5450 8000
 Wire Wire Line
-	5300 6150 5450 6150
-Connection ~ 5450 6150
+	5300 8000 5450 8000
+Connection ~ 5450 8000
 Wire Wire Line
-	5450 6150 5650 6150
+	5450 8000 5650 8000
 $Comp
 L power:+3.3VP #PWR?
 U 1 1 5BC9EAF4
-P 6150 5300
-F 0 "#PWR?" H 6300 5250 50  0001 C CNN
-F 1 "+3.3VP" H 6170 5443 50  0000 C CNN
-F 2 "" H 6150 5300 50  0001 C CNN
-F 3 "" H 6150 5300 50  0001 C CNN
-	1    6150 5300
+P 6150 7150
+F 0 "#PWR?" H 6300 7100 50  0001 C CNN
+F 1 "+3.3VP" H 6170 7293 50  0000 C CNN
+F 2 "" H 6150 7150 50  0001 C CNN
+F 3 "" H 6150 7150 50  0001 C CNN
+	1    6150 7150
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5BC9EB31
-P 6300 5500
-F 0 "C?" H 6392 5546 50  0000 L CNN
-F 1 "100 nF" H 6392 5455 50  0000 L CNN
-F 2 "" H 6300 5500 50  0001 C CNN
-F 3 "~" H 6300 5500 50  0001 C CNN
-	1    6300 5500
+P 6300 7350
+F 0 "C?" H 6392 7396 50  0000 L CNN
+F 1 "100 nF" H 6392 7305 50  0000 L CNN
+F 2 "" H 6300 7350 50  0001 C CNN
+F 3 "~" H 6300 7350 50  0001 C CNN
+	1    6300 7350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5BC9EBBD
-P 6300 5650
-F 0 "#PWR?" H 6300 5400 50  0001 C CNN
-F 1 "GND" H 6300 5500 50  0000 C CNN
-F 2 "" H 6300 5650 50  0001 C CNN
-F 3 "" H 6300 5650 50  0001 C CNN
-	1    6300 5650
+P 6300 7500
+F 0 "#PWR?" H 6300 7250 50  0001 C CNN
+F 1 "GND" H 6300 7350 50  0000 C CNN
+F 2 "" H 6300 7500 50  0001 C CNN
+F 3 "" H 6300 7500 50  0001 C CNN
+	1    6300 7500
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6300 5600 6300 5650
+	6300 7450 6300 7500
 Wire Wire Line
-	6150 5300 6150 5350
+	6150 7150 6150 7200
 Wire Wire Line
-	6150 5350 6300 5350
+	6150 7200 6300 7200
 Wire Wire Line
-	6300 5350 6300 5400
-Connection ~ 6150 5350
+	6300 7200 6300 7250
+Connection ~ 6150 7200
 Wire Wire Line
-	6150 5350 6150 5750
-$Comp
-L icebreaker-cache:pkl_memory_W25Q U?
-U 1 1 5BCA3A2D
-P 6800 9850
-F 0 "U?" H 6800 10275 50  0000 C CNN
-F 1 "pkl_memory:W25Q" H 6800 10184 50  0000 C CNN
-F 2 "" H 6800 9850 50  0001 C CNN
-F 3 "" H 6800 9850 50  0001 C CNN
-	1    6800 9850
-	-1   0    0    -1  
-$EndComp
+	6150 7200 6150 7600
 Wire Wire Line
-	6650 6850 7000 6850
-Text Label 7000 6850 0    50   ~ 0
+	6650 8700 7000 8700
+Text Label 7000 8700 0    50   ~ 0
 FLASH_~WP
-Text Label 7000 7050 0    50   ~ 0
+Text Label 7000 8900 0    50   ~ 0
 FLASH_~HLD~|~RST
 Wire Wire Line
-	7000 7050 6650 7050
+	7000 8900 6650 8900
 Wire Wire Line
-	6650 6550 7000 6550
+	6650 8400 7000 8400
 Wire Wire Line
-	6650 6450 7000 6450
+	6650 8300 7000 8300
 Wire Wire Line
-	7000 6650 6650 6650
+	7000 8500 6650 8500
 Wire Wire Line
-	6650 6750 7000 6750
+	6650 8600 7000 8600
 Wire Wire Line
-	7000 6950 6650 6950
+	7000 8800 6650 8800
 Wire Wire Line
-	6650 7350 7000 7350
+	6650 9200 7000 9200
 Wire Wire Line
-	6650 7250 7000 7250
+	6650 9100 7000 9100
 Wire Wire Line
-	6650 7150 7000 7150
+	6650 9000 7000 9000
 Wire Wire Line
-	6400 4750 6650 4750
+	6500 6050 6750 6050
 Wire Wire Line
-	6650 4650 6400 4650
+	6750 5950 6500 5950
 Wire Wire Line
-	6400 4550 6650 4550
+	6500 5850 6750 5850
 Wire Wire Line
-	6650 4450 6400 4450
+	6750 5750 6500 5750
 Wire Wire Line
-	6400 4350 6650 4350
+	6500 5650 6750 5650
 Wire Wire Line
-	6650 4250 6400 4250
+	6750 5550 6500 5550
 Wire Wire Line
-	6400 4150 6650 4150
+	6500 5450 6750 5450
 Wire Wire Line
-	6650 4050 6400 4050
-Text Notes 6450 3100 0    50   ~ 0
+	6750 5350 6500 5350
+Text Notes 6600 3750 0    50   ~ 0
 TODO: OPEN COLLECTOR!
-Text Notes 9200 4150 0    50   ~ 0
-TODO: TERMINATE THESE
+Text HLabel 6650 2000 2    50   Input ~ 0
+DELAY_SLOAD
+Text HLabel 6650 2100 2    50   Input ~ 0
+DELAY_~EN
+Text HLabel 6650 2200 2    50   Input ~ 0
+DELAY_SDIN
+Text HLabel 6650 2300 2    50   Input ~ 0
+DELAY_SCLK
+$Comp
+L power:+3.3VP #PWR?
+U 1 1 5BF8B972
+P 6100 4200
+F 0 "#PWR?" H 6250 4150 50  0001 C CNN
+F 1 "+3.3VP" H 6120 4343 50  0000 C CNN
+F 2 "" H 6100 4200 50  0001 C CNN
+F 3 "" H 6100 4200 50  0001 C CNN
+	1    6100 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3VP #PWR?
+U 1 1 5BF8CFA7
+P 6100 850
+F 0 "#PWR?" H 6250 800 50  0001 C CNN
+F 1 "+3.3VP" H 6120 993 50  0000 C CNN
+F 2 "" H 6100 850 50  0001 C CNN
+F 3 "" H 6100 850 50  0001 C CNN
+	1    6100 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BF9439C
+P 6400 4400
+F 0 "C?" H 6492 4446 50  0000 L CNN
+F 1 "100 nF" H 6492 4355 50  0000 L CNN
+F 2 "" H 6400 4400 50  0001 C CNN
+F 3 "~" H 6400 4400 50  0001 C CNN
+	1    6400 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BF943A3
+P 6400 4550
+F 0 "#PWR?" H 6400 4300 50  0001 C CNN
+F 1 "GND" H 6400 4400 50  0000 C CNN
+F 2 "" H 6400 4550 50  0001 C CNN
+F 3 "" H 6400 4550 50  0001 C CNN
+	1    6400 4550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6400 4500 6400 4550
+Wire Wire Line
+	6100 4200 6100 4250
+Wire Wire Line
+	6100 4250 6400 4250
+Wire Wire Line
+	6400 4250 6400 4300
+Connection ~ 6100 4250
+Wire Wire Line
+	6100 4250 6100 4850
+$Comp
+L Device:C_Small C?
+U 1 1 5BFA34EA
+P 6400 1150
+F 0 "C?" H 6492 1196 50  0000 L CNN
+F 1 "100 nF" H 6492 1105 50  0000 L CNN
+F 2 "" H 6400 1150 50  0001 C CNN
+F 3 "~" H 6400 1150 50  0001 C CNN
+	1    6400 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BFA34F1
+P 6400 1300
+F 0 "#PWR?" H 6400 1050 50  0001 C CNN
+F 1 "GND" H 6400 1150 50  0000 C CNN
+F 2 "" H 6400 1300 50  0001 C CNN
+F 3 "" H 6400 1300 50  0001 C CNN
+	1    6400 1300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6400 1250 6400 1300
+Wire Wire Line
+	6100 1000 6400 1000
+Wire Wire Line
+	6400 1000 6400 1050
+Wire Wire Line
+	6100 1000 6100 1500
+Wire Wire Line
+	6100 1000 6100 850 
+Connection ~ 6100 1000
+$Comp
+L power:+3.3VP #PWR?
+U 1 1 5BFAFADA
+P 3950 6750
+F 0 "#PWR?" H 4100 6700 50  0001 C CNN
+F 1 "+3.3VP" H 3970 6893 50  0000 C CNN
+F 2 "" H 3950 6750 50  0001 C CNN
+F 3 "" H 3950 6750 50  0001 C CNN
+	1    3950 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BFAFCE7
+P 3450 7100
+F 0 "C?" H 3542 7146 50  0000 L CNN
+F 1 "10 nF" H 3542 7055 50  0000 L CNN
+F 2 "" H 3450 7100 50  0001 C CNN
+F 3 "~" H 3450 7100 50  0001 C CNN
+	1    3450 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BFAFD55
+P 3950 7100
+F 0 "C?" H 4042 7146 50  0000 L CNN
+F 1 "2.2 uF" H 4042 7055 50  0000 L CNN
+F 2 "" H 3950 7100 50  0001 C CNN
+F 3 "~" H 3950 7100 50  0001 C CNN
+	1    3950 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BFB18EC
+P 2950 7100
+F 0 "C?" H 3042 7146 50  0000 L CNN
+F 1 "100 pF" H 3042 7055 50  0000 L CNN
+F 2 "" H 2950 7100 50  0001 C CNN
+F 3 "~" H 2950 7100 50  0001 C CNN
+	1    2950 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BFB1A30
+P 2350 6700
+F 0 "#PWR?" H 2350 6550 50  0001 C CNN
+F 1 "+3V3" H 2365 6873 50  0000 C CNN
+F 2 "" H 2350 6700 50  0001 C CNN
+F 3 "" H 2350 6700 50  0001 C CNN
+	1    2350 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Small L?
+U 1 1 5BFB5086
+P 2700 6900
+F 0 "L?" V 2885 6900 50  0000 C CNN
+F 1 "L_Small" V 2794 6900 50  0000 C CNN
+F 2 "" H 2700 6900 50  0001 C CNN
+F 3 "~" H 2700 6900 50  0001 C CNN
+	1    2700 6900
+	0    -1   -1   0   
+$EndComp
+Text Notes 9400 3000 0    50   ~ 0
+TODO: add digital test/ext control headers
+Text HLabel 8200 3400 2    50   Output ~ 0
+SEL1
+Text HLabel 8200 3550 2    50   Output ~ 0
+SEL0
+Text HLabel 8200 3200 2    50   Output ~ 0
+TRIG_DAC_SCK
+Text HLabel 8200 3300 2    50   Output ~ 0
+TRIG_DAC_SDI
+Text HLabel 8200 3100 2    50   Output ~ 0
+TRIG_DAC_CS
+$Comp
+L power:GND #PWR?
+U 1 1 5C1257B3
+P 2950 7300
+F 0 "#PWR?" H 2950 7050 50  0001 C CNN
+F 1 "GND" H 2950 7150 50  0000 C CNN
+F 2 "" H 2950 7300 50  0001 C CNN
+F 3 "" H 2950 7300 50  0001 C CNN
+	1    2950 7300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C125831
+P 3450 7300
+F 0 "#PWR?" H 3450 7050 50  0001 C CNN
+F 1 "GND" H 3450 7150 50  0000 C CNN
+F 2 "" H 3450 7300 50  0001 C CNN
+F 3 "" H 3450 7300 50  0001 C CNN
+	1    3450 7300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C12586A
+P 3950 7300
+F 0 "#PWR?" H 3950 7050 50  0001 C CNN
+F 1 "GND" H 3950 7150 50  0000 C CNN
+F 2 "" H 3950 7300 50  0001 C CNN
+F 3 "" H 3950 7300 50  0001 C CNN
+	1    3950 7300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 7200 2950 7300
+Wire Wire Line
+	3450 7200 3450 7300
+Wire Wire Line
+	3950 7200 3950 7300
+Wire Wire Line
+	2800 6900 2950 6900
+Wire Wire Line
+	2950 6900 2950 7000
+Wire Wire Line
+	2950 6900 3450 6900
+Wire Wire Line
+	3450 6900 3450 7000
+Connection ~ 2950 6900
+Wire Wire Line
+	3450 6900 3950 6900
+Wire Wire Line
+	3950 6900 3950 7000
+Connection ~ 3450 6900
+Wire Wire Line
+	3950 6900 3950 6750
+Connection ~ 3950 6900
+Wire Wire Line
+	2600 6900 2350 6900
+Wire Wire Line
+	2350 6900 2350 6700
 $EndSCHEMATC

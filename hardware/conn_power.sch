@@ -623,7 +623,7 @@ F 3 "" H 3350 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L synth_lib:FT2232H U?
+L tdr-rescue:FT2232H-synth_lib U?
 U 1 1 5BCAC7E0
 P 4050 6950
 F 0 "U?" H 4050 9328 50  0000 C CNN
@@ -640,4 +640,6 @@ Wire Wire Line
 Connection ~ 3550 9250
 Wire Wire Line
 	3550 9250 3650 9250
+Text HLabel 10200 8550 0    50   Input ~ 0
+ANALOG_TRIG
 $EndSCHEMATC

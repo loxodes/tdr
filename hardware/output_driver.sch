@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L synth_lib:ADCMP580 U?
+L tdr-rescue:ADCMP580-synth_lib U?
 U 1 1 5BC2B59B
 P 5700 3350
 AR Path="/5BC41CC8/5BC2B59B" Ref="U?"  Part="1" 
