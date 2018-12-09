@@ -28,7 +28,7 @@ F 3 "" H 6700 3600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L tdr-rescue:AD9740ACPZ-symbols U?
+L tdr-rescue:AD9740ACPZ-symbols-tdr-rescue U?
 U 1 1 5BC36C50
 P 3800 1200
 AR Path="/5BC3F67C/5BC36C50" Ref="U?"  Part="1" 
@@ -1037,7 +1037,7 @@ $EndComp
 Wire Wire Line
 	7150 2650 7150 2500
 $Comp
-L tdr-rescue:ADA4817-1-synth_lib U?
+L tdr-rescue:ADA4817-1-synth_lib-tdr-rescue U?
 U 1 1 5BC6297A
 P 8850 1750
 F 0 "U?" H 8850 2165 50  0000 C CNN
@@ -1351,4 +1351,6 @@ Wire Wire Line
 	8500 950  8300 950 
 Wire Wire Line
 	8300 950  8300 1050
+Text Notes 8050 750  0    50   ~ 0
+TODO: replace with 3V3 OP AMP
 $EndSCHEMATC

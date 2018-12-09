@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 3 9
+Sheet 3 8
 Title ""
 Date ""
 Rev ""
@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L tdr-rescue:DV75D_TCXO-synth_lib X?
+L tdr-rescue:DV75D_TCXO-synth_lib-tdr-rescue X?
 U 1 1 5BC18539
 P 5050 4150
 F 0 "X?" H 4400 4550 50  0000 L CNN
@@ -210,7 +210,7 @@ Wire Wire Line
 Wire Wire Line
 	5300 3250 5300 3350
 $Comp
-L tdr-rescue:CDCLVP1204-synth_lib U?
+L tdr-rescue:CDCLVP1204-synth_lib-tdr-rescue U?
 U 1 1 5BC1E724
 P 7700 4300
 F 0 "U?" H 7700 5065 50  0000 C CNN
@@ -361,7 +361,7 @@ Text Notes 7450 3300 0    50   ~ 0
 Text Notes 7450 3400 0    50   ~ 0
 LVPECL OUTPUT
 $Comp
-L tdr-rescue:SY89321L-synth_lib U?
+L tdr-rescue:SY89321L-synth_lib-tdr-rescue U?
 U 1 1 5BFD7F17
 P 11800 3850
 F 0 "U?" H 11800 4265 50  0000 C CNN
@@ -617,9 +617,11 @@ Wire Wire Line
 Text Notes 2200 5000 0    50   ~ 0
 EXT ANALOG TRIG
 $Comp
-L tdr:ICS853S057I U?
+L tdr-rescue:ICS853S057I-tdr U?
 U 1 1 5BE3EFE8
 P 11850 6500
+AR Path="/5BE3EFE8" Ref="U?"  Part="1" 
+AR Path="/5BC3F72A/5BE3EFE8" Ref="U?"  Part="1" 
 F 0 "U?" H 11850 7215 50  0000 C CNN
 F 1 "ICS853S057I" H 11850 7124 50  0000 C CNN
 F 2 "" H 11450 7050 50  0001 C CNN
@@ -1160,7 +1162,7 @@ Wire Wire Line
 Text Notes 9550 4850 0    50   ~ 0
 LVPECL TERMINATION
 $Comp
-L tdr-rescue:ADCMP580-synth_lib U?
+L tdr-rescue:ADCMP580-synth_lib-tdr-rescue U?
 U 1 1 5BF5E6BE
 P 3250 6600
 AR Path="/5BC41CC8/5BF5E6BE" Ref="U?"  Part="1" 

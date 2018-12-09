@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 9
+Sheet 6 8
 Title ""
 Date ""
 Rev ""
@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L tdr-rescue:NB6L295MMNG-synth_lib U?
+L tdr-rescue:NB6L295MMNG-synth_lib-tdr-rescue U?
 U 1 1 5BCA9906
 P 5400 4000
 AR Path="/5BC64E97/5BCA9906" Ref="U?"  Part="1" 

@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 9
+Sheet 4 8
 Title ""
 Date ""
 Rev ""
@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L tdr-rescue:ADCMP580-synth_lib U?
+L tdr-rescue:ADCMP580-synth_lib-tdr-rescue U?
 U 1 1 5BC42930
 P 5200 3300
 F 0 "U?" H 4500 3900 50  0000 L CNN
@@ -325,7 +325,7 @@ Wire Wire Line
 Wire Wire Line
 	5250 3950 5250 4600
 $Comp
-L tdr-rescue:SY89321L-synth_lib U?
+L tdr-rescue:SY89321L-synth_lib-tdr-rescue U?
 U 1 1 5BC3E45C
 P 8650 3300
 F 0 "U?" H 8650 3715 50  0000 C CNN
