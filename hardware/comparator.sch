@@ -316,14 +316,10 @@ Wire Wire Line
 	3250 3350 4550 3350
 Text HLabel 3250 3350 0    50   Input ~ 0
 REF_INPUT
-Text HLabel 5150 4600 3    50   Input ~ 0
+Text HLabel 5150 5050 3    50   Input ~ 0
 ~LATCH
-Text HLabel 5250 4600 3    50   Input ~ 0
+Text HLabel 5250 5050 3    50   Input ~ 0
 LATCH
-Wire Wire Line
-	5150 4600 5150 3950
-Wire Wire Line
-	5250 3950 5250 4600
 $Comp
 L tdr-rescue:SY89321L-synth_lib-tdr-rescue U402
 U 1 1 5BC3E45C
@@ -484,4 +480,34 @@ F 3 "" H 8050 3900 50  0001 C CNN
 $EndComp
 Text Notes 2950 3150 0    50   ~ 0
 +/- 2V
+$Comp
+L Device:R_Small R405
+U 1 1 5C37AFC8
+P 5150 4800
+F 0 "R405" V 5050 4850 50  0000 L CNN
+F 1 "JMP" V 5050 4650 50  0000 L CNN
+F 2 "Resistors_SMD:R_0402" H 5150 4800 50  0001 C CNN
+F 3 "~" H 5150 4800 50  0001 C CNN
+	1    5150 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R406
+U 1 1 5C37B0A4
+P 5250 4800
+F 0 "R406" V 5350 4850 50  0000 L CNN
+F 1 "JMP" V 5350 4650 50  0000 L CNN
+F 2 "Resistors_SMD:R_0402" H 5250 4800 50  0001 C CNN
+F 3 "~" H 5250 4800 50  0001 C CNN
+	1    5250 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 3950 5250 4700
+Wire Wire Line
+	5150 3950 5150 4700
+Wire Wire Line
+	5150 4900 5150 5050
+Wire Wire Line
+	5250 4900 5250 5050
 $EndSCHEMATC
