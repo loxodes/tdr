@@ -74,10 +74,6 @@ Wire Wire Line
 Wire Wire Line
 	6000 1050 6250 1050
 Wire Wire Line
-	6000 2950 6250 2950
-Wire Wire Line
-	6000 3050 6250 3050
-Wire Wire Line
 	6000 4900 6250 4900
 Wire Wire Line
 	7350 5650 7600 5650
@@ -129,9 +125,9 @@ Text Label 4850 950  2    50   ~ 0
 CLK_PULSE_P
 Text Label 4850 1050 2    50   ~ 0
 CLK_PULSE_N
-Text Label 4850 2950 2    50   ~ 0
+Text Label 4700 2950 2    50   ~ 0
 CLK_SAMPLE_P
-Text Label 4850 3050 2    50   ~ 0
+Text Label 4700 3050 2    50   ~ 0
 CLK_SAMPLE_N
 Wire Wire Line
 	4850 950  5000 950 
@@ -259,4 +255,32 @@ Wire Wire Line
 	4350 7150 4100 7150
 Wire Wire Line
 	4100 4900 5000 4900
+Text Notes 5100 2700 0    50   ~ 0
+INVERT SAMPLE CLK\nINTO DELAY CHIP
+Text Notes 6300 3350 0    50   ~ 0
+AND INVERT LATCH\nCONTROL SIGNAL\nSO THE LAYOUT WORKS..
+Wire Wire Line
+	4700 3050 4750 3050
+Wire Wire Line
+	4750 3050 4850 2950
+Wire Wire Line
+	4700 2950 4750 2950
+Wire Wire Line
+	4750 2950 4850 3050
+Wire Wire Line
+	6000 3050 6050 3050
+Wire Wire Line
+	6050 3050 6150 2950
+Wire Wire Line
+	6150 2950 6250 2950
+Wire Wire Line
+	6000 2950 6050 2950
+Wire Wire Line
+	6050 2950 6150 3050
+Wire Wire Line
+	6150 3050 6250 3050
+Text Label 6050 2950 0    50   ~ 0
+~LATCH
+Text Label 6050 3050 0    50   ~ 0
+LATCH
 $EndSCHEMATC
