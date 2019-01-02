@@ -465,8 +465,6 @@ F 3 "" H 5900 2950 50  0001 C CNN
 	1    5900 2950
 	0    1    1    0   
 $EndComp
-Text HLabel 14500 5100 0    50   Input ~ 0
-REF_CLK_OUT
 Text HLabel 13500 4000 0    50   Input ~ 0
 ANALOG_TRIG
 $Comp
@@ -998,32 +996,6 @@ Wire Wire Line
 Wire Wire Line
 	5700 2650 5900 2650
 Connection ~ 5700 2650
-$Comp
-L Connector:Conn_Coaxial J206
-U 1 1 5C16C85A
-P 15050 5100
-F 0 "J206" H 15149 5076 50  0000 L CNN
-F 1 "Conn_Coaxial" H 15149 4985 50  0000 L CNN
-F 2 "vna_footprints:732511150_sma_thin" H 15050 5100 50  0001 C CNN
-F 3 " ~" H 15050 5100 50  0001 C CNN
-	1    15050 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0154
-U 1 1 5C16C861
-P 15050 5350
-F 0 "#PWR0154" H 15050 5100 50  0001 C CNN
-F 1 "GND" H 15055 5177 50  0000 C CNN
-F 2 "" H 15050 5350 50  0001 C CNN
-F 3 "" H 15050 5350 50  0001 C CNN
-	1    15050 5350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15050 5350 15050 5300
-Wire Wire Line
-	14850 5100 14500 5100
 $Comp
 L Connector:Conn_Coaxial J205
 U 1 1 5C1F024D
