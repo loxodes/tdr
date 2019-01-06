@@ -14,7 +14,7 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 12250 3350 2    50   Output ~ 0
+Text HLabel 12250 6800 2    50   Output ~ 0
 DAC_CS
 Text HLabel 12200 4600 2    50   Output ~ 0
 REF_CLK_SEL
@@ -28,9 +28,9 @@ Text HLabel 12200 4400 2    50   Output ~ 0
 SEL1
 Text HLabel 12200 4500 2    50   Output ~ 0
 SEL0
-Text HLabel 12250 3450 2    50   Output ~ 0
+Text HLabel 12250 6900 2    50   Output ~ 0
 DAC_SCK
-Text HLabel 12250 3550 2    50   Output ~ 0
+Text HLabel 12250 7000 2    50   Output ~ 0
 DAC_SDI
 $Comp
 L power:GND #PWR0304
@@ -690,7 +690,7 @@ Wire Wire Line
 	9750 4000 9750 3250
 Wire Wire Line
 	9750 3250 10200 3250
-Text HLabel 12250 3250 2    50   Output ~ 0
+Text HLabel 12250 3550 2    50   Output ~ 0
 DAC_~CLR
 Wire Wire Line
 	7450 4300 8600 4300
@@ -1019,11 +1019,11 @@ Wire Wire Line
 	9750 7450 9750 6700
 Wire Wire Line
 	9750 6700 10200 6700
-Text HLabel 12250 7000 2    50   Output ~ 0
+Text HLabel 12250 3250 2    50   Output ~ 0
 DELAY_~EN
-Text HLabel 12250 6800 2    50   Input ~ 0
+Text HLabel 12250 3350 2    50   Input ~ 0
 DELAY_SDIN
-Text HLabel 12250 6900 2    50   Input ~ 0
+Text HLabel 12250 3450 2    50   Input ~ 0
 DELAY_SCLK
 Text HLabel 8300 7450 0    50   Input ~ 0
 COMPARATOR_OUTPUT
