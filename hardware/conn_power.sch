@@ -187,7 +187,7 @@ U 1 1 5BDAA721
 P 15050 6450
 F 0 "J208" H 15149 6426 50  0000 L CNN
 F 1 "Conn_Coaxial" H 15149 6335 50  0000 L CNN
-F 2 "vna_footprints:732511150_sma_thin" H 15050 6450 50  0001 C CNN
+F 2 "vna_footprints:732511150_sma_thin_twopin" H 15050 6450 50  0001 C CNN
 F 3 " ~" H 15050 6450 50  0001 C CNN
 	1    15050 6450
 	1    0    0    -1  
@@ -255,7 +255,7 @@ U 1 1 5BDACF72
 P 15050 7300
 F 0 "J209" H 15149 7276 50  0000 L CNN
 F 1 "Conn_Coaxial" H 15149 7185 50  0000 L CNN
-F 2 "vna_footprints:732511150_sma_thin" H 15050 7300 50  0001 C CNN
+F 2 "vna_footprints:732511150_sma_thin_twopin" H 15050 7300 50  0001 C CNN
 F 3 " ~" H 15050 7300 50  0001 C CNN
 	1    15050 7300
 	1    0    0    -1  
