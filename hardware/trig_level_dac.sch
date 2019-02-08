@@ -824,4 +824,6 @@ Wire Wire Line
 Connection ~ 3400 5600
 Wire Wire Line
 	3400 5950 3400 6050
+Text Notes 8200 4300 0    50   ~ 0
+TODO: WHAT IS THE STATE OF THIS AT STARTUP?
 $EndSCHEMATC

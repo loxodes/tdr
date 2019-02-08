@@ -1,0 +1,13 @@
+config-pin P8_3 gpio
+config-pin P8_4 gpio
+config-pin P8_5 gpio
+config-pin P8_6 gpio
+config-pin P8_7 gpio
+config-pin P8_8 gpio
+config-pin P8_9 gpio
+config-pin P8_10 gpio
+config-pin P8_11 gpio
+config-pin P8_12 gpio
+config-pin P8_13 gpio
+config-pin P8_14 gpio
+config-pin P8_15 gpio

@@ -2,26 +2,23 @@ from mmap_gpio import GPIO
 from bbone_spi_bitbang import bitbang_spi
 from pylab import *
 
-# TODO: define pins 
-TRIG_SEL0 = TBD
-TRIG_SEL1 = TBD
-REF_SEL = TBD
+TRIG_SEL0 = (1, 6) # P8_3
+TRIG_SEL1 = (1, 7) # P8_4
+REF_SEL = (1, 2) # P8_5
 
-COMP_OUT = TBD
-REFCLK = TBD
+COMP_OUT = (1, 3) # P8_6
+REFCLK = (2, 2)  # P8_7
 
-DAC_CS = TBD
-DAC_SDI = TBD
-DAC_SCK = TBD
-DAC_CLR = TBD
+DAC_CS = (2, 3) # P8_8
+DAC_SDI = (2, 5) # P8_9
+DAC_SCK = (2, 4) # P8_10
+DAC_CLR = (1, 13) # P8_11
 
-DELAY_EN = TBD
-DELAY_SDIN = TBD
-DELAY_SCK = TBD
-DELAY_SLOAD = TBD
+DELAY_EN = (1, 12) # P8_12
+DELAY_SDIN = (0, 23) # P8_13
+DELAY_SCK = (0, 26) # P8_14
+DELAY_SLOAD = (1, 15) # P8_15
 
-
-# TODO: update spi bitbang for rising or falling edge data, MSB or LSB first, latch signal..
 
 class Dac():
     # DAC756x
@@ -32,7 +29,7 @@ class Dac():
         self.gpio = gpio
         # msb first, data read on falling edge of clock
         # sync high at least one cycle, then low for entire transactiion
-        self.spi = bitbang_spi(DAC_CS, DAC_SDI, False, DAC_SCK, first = 'MSB')
+        self.spi = bitbang_spi(DAC_CS, DAC_SDI, None, DAC_SCK, rising_data = False)
         gpio.set_output(DAC_CLR)
 
         self.dac_cmd(0x07, 0, 1) # enable internal reference
@@ -48,6 +45,7 @@ class Dac():
     def set_b(self):
         self.dac_cmd(3, 1, value)
 
+
 class Delay():
     # https://www.onsemi.com/pub/Collateral/NB6L295M-D.PDF
     # delay a is pulse offset
@@ -56,14 +54,20 @@ class Delay():
         self.gpio = gpio
         # lsb first, data read on rising edge of clock, en high during entire transaction
         # pulse sload on last bit after rising edge
-        self.spi = bitbang_spi(DELAY_EN, DELAY_SDIN, False, DELAY_SCK, latch = DELAY_SLOAD, first = 'LSB')
+        self.spi = bitbang_spi(DELAY_EN, DELAY_SDIN, None, DELAY_SCK, latch = DELAY_SLOAD, enable_high = True)
     
+    # the chip expects lsb first, and the spi driver is msb firsr
+    def _revbits(x, nbits = 11):
+        return int(bin(x)[2:].zfill(nbits)[::-1], 2)
+   
     def set_a(self, value):
         command = (value & 0x1FF) >> 2
+        command = _revbits(command) 
         self.spi.transfer(command)
 
     def set_b(self):
         command = 1 + ((value & 0x1FF) >> 2)
+        command = _revbits(command) 
         self.spi.transfer(command)
 
 
@@ -110,4 +114,4 @@ if __name__ == '__main__':
                 sweep[trig_offset] = cmp_voltage
                 break
 
-    print sweep
+    print(sweep)
