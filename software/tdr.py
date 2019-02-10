@@ -1,3 +1,4 @@
+import time
 from mmap_gpio import GPIO
 from bbone_spi_bitbang import bitbang_spi
 from pylab import *
@@ -37,7 +38,7 @@ class Dac():
 
     def dac_cmd(self, command, addr, data):
         command = (command & 0x7 << 19) + (addr & 0x07 << 16) + ((data << 4) & 0xffff)
-        self.spi.transfer(command)
+        self.spi.transfer(command, bits = 24)
 
     def set_a(self, value):
         self.dac_cmd(3, 0, value)
@@ -54,28 +55,28 @@ class Delay():
         self.gpio = gpio
         # lsb first, data read on rising edge of clock, en high during entire transaction
         # pulse sload on last bit after rising edge
-        self.spi = bitbang_spi(DELAY_EN, DELAY_SDIN, None, DELAY_SCK, latch = DELAY_SLOAD, enable_high = True)
+        self.spi = bitbang_spi(DELAY_EN, DELAY_SDIN, None, DELAY_SCK, latch = DELAY_SLOAD, enable_low = False)
     
     # the chip expects lsb first, and the spi driver is msb firsr
-    def _revbits(x, nbits = 11):
+    def _revbits(self, x, nbits = 11):
         return int(bin(x)[2:].zfill(nbits)[::-1], 2)
    
     def set_a(self, value):
-        command = (value & 0x1FF) >> 2
-        command = _revbits(command) 
-        self.spi.transfer(command)
+        command = ((value & 0x1FF) << 2)
+        command = self._revbits(command) 
+        self.spi.transfer(command, bits = 11)
 
-    def set_b(self):
-        command = 1 + ((value & 0x1FF) >> 2)
-        command = _revbits(command) 
-        self.spi.transfer(command)
+    def set_b(self, value):
+        command = (((value & 0x1FF)) << 2) + 1
+        command = self._revbits(command) 
+        self.spi.transfer(command, bits = 11)
 
 
 if __name__ == '__main__':
     gpio = GPIO()
 
     gpio.set_output(TRIG_SEL0)
-    gpio.set_output(TRG_SEL1)
+    gpio.set_output(TRIG_SEL1)
     gpio.set_output(REF_SEL)
 
     gpio.set_input(COMP_OUT)
@@ -105,13 +106,15 @@ if __name__ == '__main__':
     # delaay b is trigger offset
 
     sweep = np.zeros(NDELAYS)
-
-    for trig_offset in range(NDELAYS):
-        delay.set_b(trig_offset) 
-        for cmp_voltage in range(NDACS):
-            dac.set_a(cmp_voltage << 2)
-            if read_value(COMP_OUT):
-                sweep[trig_offset] = cmp_voltage
-                break
+    while True:
+        for trig_offset in range(NDELAYS):
+            delay.set_a(trig_offset)  # TODO: change to set_b after verifying delay 
+            for cmp_voltage in range(NDACS):
+                dac.set_a(cmp_voltage << 2)
+                time.sleep(.01)
+                print("delay {}".format(trig_offset))
+                if gpio.read_value(COMP_OUT):
+                    sweep[trig_offset] = cmp_voltage
+                    break
 
     print(sweep)

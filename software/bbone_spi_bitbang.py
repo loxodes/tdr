@@ -5,7 +5,7 @@ class bitbang_spi:
         self.gpio = GPIO()
 
         self.rising_data = rising_data
-        self.enable_high = enable_high
+        self.enable_low = enable_low 
 
         self.spi_cs = spi_cs
         self.spi_mosi = spi_mosi
