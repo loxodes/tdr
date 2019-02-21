@@ -1,4 +1,5 @@
 import time
+import pdb
 from mmap_gpio import GPIO
 from bbone_spi_bitbang import bitbang_spi
 from pylab import *
@@ -37,14 +38,14 @@ class Dac():
 
 
     def dac_cmd(self, command, addr, data):
-        command = (command & 0x7 << 19) + (addr & 0x07 << 16) + ((data << 4) & 0xffff)
+        command = ((command & 0x7) << 19) + ((addr & 0x07) << 16) + (data & 0xffff)
         self.spi.transfer(command, bits = 24)
 
     def set_a(self, value):
-        self.dac_cmd(3, 0, value)
+        self.dac_cmd(3, 0, value << 4)
 
-    def set_b(self):
-        self.dac_cmd(3, 1, value)
+    def set_b(self, value):
+        self.dac_cmd(3, 1, value << 4)
 
 
 class Delay():
@@ -86,7 +87,7 @@ if __name__ == '__main__':
     dac = Dac(gpio)
    
     NDELAYS = 1 << 9
-    NDACS = 1 << 10
+    NDACS = 1 << 10 
     
     # trigger sources:
     # 0 - clk (delayed)
@@ -103,18 +104,24 @@ if __name__ == '__main__':
 
     # set delay a (output pulse delay) to 0
     delay.set_a(0)
-    # delaay b is trigger offset
-
+    
+    # delay b is trigger offset
+    
     sweep = np.zeros(NDELAYS)
-    while True:
-        for trig_offset in range(NDELAYS):
-            delay.set_a(trig_offset)  # TODO: change to set_b after verifying delay 
-            for cmp_voltage in range(NDACS):
-                dac.set_a(cmp_voltage << 2)
-                time.sleep(.01)
-                print("delay {}".format(trig_offset))
-                if gpio.read_value(COMP_OUT):
-                    sweep[trig_offset] = cmp_voltage
-                    break
+    print("dac.set_a(x <<2)")
+
+    for trig_offset in range(NDELAYS):
+        delay.set_b(trig_offset)
+        for cmp_voltage in range(NDACS):
+            dac.set_a(cmp_voltage << 2)
+            if not gpio.read_value(COMP_OUT):
+                sweep[trig_offset] = cmp_voltage
+                break
+
+        print("delay {}, dac {}".format(trig_offset, sweep[trig_offset]))
 
     print(sweep)
+    sweepfile = open("sweepfile", "w")
+    np.save(sweepfile, sweep)
+
+    pdb.set_trace()
