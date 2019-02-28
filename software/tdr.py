@@ -87,15 +87,17 @@ if __name__ == '__main__':
     dac = Dac(gpio)
    
     NDELAYS = 1 << 9
-    NDACS = 1 << 10 
+    NDACS = 1 << 12
     
+    BRUTE_FORCE_TRIG = False
+
     # trigger sources:
     # 0 - clk (delayed)
     # 1 - unused
     # 2 - analog trigger
     # 3 - external pulse
-    gpio.set_value(TRIG_SEL0, gpio.LOW)
-    gpio.set_value(TRIG_SEL1, gpio.LOW)
+    gpio.set_value(TRIG_SEL0, gpio.HIGH)
+    gpio.set_value(TRIG_SEL1, gpio.HIGH)
 
     # reference sources:
     # 0 - internal
@@ -104,7 +106,8 @@ if __name__ == '__main__':
 
     # set delay a (output pulse delay) to 0
     delay.set_a(0)
-    
+    dac.set_b(2220)
+
     # delay b is trigger offset
     
     sweep = np.zeros(NDELAYS)
@@ -112,11 +115,26 @@ if __name__ == '__main__':
 
     for trig_offset in range(NDELAYS):
         delay.set_b(trig_offset)
-        for cmp_voltage in range(NDACS):
-            dac.set_a(cmp_voltage << 2)
-            if not gpio.read_value(COMP_OUT):
-                sweep[trig_offset] = cmp_voltage
-                break
+        
+        if BRUTE_FORCE_TRIG:
+            for cmp_voltage in range(NDACS):
+                dac.set_a(cmp_voltage << 3)
+                if not gpio.read_value(COMP_OUT):
+                    sweep[trig_offset] = cmp_voltage << 3
+                    break
+        else:
+            # binary search trigger voltage
+            cmp_voltage = NDACS / 2
+
+            for i in range(int(log2(NDACS))-2,-1,-1):
+                dac.set_a(cmp_voltage)
+
+                if gpio.read_value(COMP_OUT):
+                    cmp_voltage += 1 << i
+                else:
+                    cmp_voltage -= 1 << i
+
+            sweep[trig_offset] = cmp_voltage
 
         print("delay {}, dac {}".format(trig_offset, sweep[trig_offset]))
 
@@ -124,4 +142,3 @@ if __name__ == '__main__':
     sweepfile = open("sweepfile", "w")
     np.save(sweepfile, sweep)
 
-    pdb.set_trace()
