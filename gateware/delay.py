@@ -44,7 +44,7 @@ class DelayController(Module):
         d0..d8, delay value
         '''
         
-        delay_spi = _SPI_TX_Master(11, rising_data = False)
+        delay_spi = _SPI_TX_Master(11, rising_data = True)
         self.submodules += delay_spi
 
 
@@ -112,11 +112,19 @@ class DelayController(Module):
             ),
 
             If(delay_spi.ready,
-                NextState("INIT")
+                NextState("END")
             ).Else(
                 NextState("WAITB")
             )
         )
+
+        delay_fsm.act("END",
+            self.ready.eq(0),
+            self.en.eq(1),
+            NextState("INIT")
+        )
+
+
 
 
 def delay_test(dut):
@@ -127,6 +135,16 @@ def delay_test(dut):
     yield dut.load.eq(0)
     for i in range(190):
         yield
+
+    yield [dut.delay1.eq(0xaa), dut.delay2.eq(0x77), dut.load.eq(0)]
+    yield
+    yield dut.load.eq(1)
+    yield
+    yield dut.load.eq(0)
+    for i in range(190):
+        yield
+
+
 
 if __name__ == '__main__':
     delay_dut = DelayController()

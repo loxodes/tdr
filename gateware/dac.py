@@ -10,6 +10,7 @@ from migen import *
 from migen.fhdl import verilog
 from spi import _SPI_TX_Master
 
+
 class DacController(Module):
     def __init__(self):
         # DAC7563SDSCR dual DAC
@@ -18,10 +19,9 @@ class DacController(Module):
         # inputs
         self.dac_a = Signal(12)
         self.dac_b = Signal(12)
-        self.load = Signal(1)
 
-        # wait for load pulse
-        self.dac_reg = Signal(24)
+
+        self.load = Signal(1)
 
         # outputs
         self.dac_sdi = Signal(1)
@@ -33,9 +33,11 @@ class DacController(Module):
         # internal
         self.dac_ready = Signal(1)
         self.dac_load = Signal(1)
+        self.dac_b_reg = Signal(12)
+        self.dac_reg = Signal(24)
 
         # load dac over spi
-        dac_spi = _SPI_TX_Master(24, rising_data = True)
+        dac_spi = _SPI_TX_Master(24, rising_data = False)
         self.submodules += dac_spi
         self.comb += [
                 self.dac_cs.eq(dac_spi.cs),
@@ -73,39 +75,40 @@ class DacController(Module):
             self.ready.eq(1),
             If(self.load,
                 NextState("LOAD_DACA"),
-                NextValue(self.dac_reg, Cat(self.dac_a, self.dac_b))
+                NextValue(self.dac_b_reg, self.dac_b[::-1]),
+                NextValue(self.dac_reg, Cat(0, 0, 0, 0, 0, 0, 0, 0, self.dac_a[::-1], 0, 0, 0, 0))
             ).Else(
                 NextState("WAIT_CMD")
             )
         )
         
-        # TODO: update DAC commands.. 
-        # [x x][0 0 0][0 0 0][x x x x 12 bits data] # update dac a
-        # [x x][0 0 0][0 0 1][x x x x 12 bits data] # update dac b
 
         dacfsm.act("LOAD_DACA",
             If(self.dac_ready,
-                NextState("WAIT_DAC"),
+                NextState("WAIT_DACA"),
                 self.dac_load.eq(1)
             ).Else(
-                NextState("LOAD_DAC"),
+                NextState("LOAD_DACA"),
             )
         )
 
         dacfsm.act("WAIT_DACA",
             If(self.dac_ready,
-                NextState("WAIT_CMD"),
+                NextState("LOAD_DACB"),
+                # [x x][0 0 0][0 0 1][12 bits data, x, x, x, x] # update dac b
+                NextValue(self.dac_reg, Cat(0, 0, 0, 0, 0, 0, 0, 1, self.dac_b_reg, 0, 0, 0, 0))
+
             ).Else(
-                NextState("WAIT_DAC"),
+                NextState("WAIT_DACA"),
             )
         )
 
         dacfsm.act("LOAD_DACB",
             If(self.dac_ready,
-                NextState("WAIT_DAC"),
+                NextState("WAIT_DACB"),
                 self.dac_load.eq(1)
             ).Else(
-                NextState("LOAD_DAC"),
+                NextState("LOAD_DACB"),
             )
         )
 
@@ -113,25 +116,24 @@ class DacController(Module):
             If(self.dac_ready,
                 NextState("WAIT_CMD"),
             ).Else(
-                NextState("WAIT_DAC"),
+                NextState("WAIT_DACB"),
             )
         )
 
 
 
 def dac_test(dut):
-    yield [dut.dac_a.eq(0x03), dut.dac_b.eq(0xff), dut.load.eq(0)]
-    yield
-    yield dut.load.eq(1)
-    yield
-    yield dut.load.eq(0)
     for i in range(130):
         yield
 
-    pass
+    yield [dut.dac_a.eq(0x03), dut.dac_b.eq(0x777), dut.load.eq(1)]
+    yield
+    yield [dut.dac_a.eq(0x0), dut.dac_b.eq(0x0), dut.load.eq(0)]
+    for i in range(130):
+        yield
 
 if __name__ == '__main__':
     dac_dut = DacController()
     run_simulation(dac_dut, dac_test(dac_dut), vcd_name="dac.vcd")
-    verilog.convert(DelayController()).write("dac.v")
+    verilog.convert(DacController()).write("dac.v")
 

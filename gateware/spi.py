@@ -40,7 +40,7 @@ class _SPI_TX_Master(Module):
        
         self.comb += self.mosi.eq(self.data_reg[0])
 
-        if rising_data:
+        if not rising_data:
             spifsm.act("SETUP",
                 self.cs.eq(0),
                 self.sck.eq(1),
@@ -67,8 +67,8 @@ class _SPI_TX_Master(Module):
             )
 
             spifsm.act("POST",
-                self.cs.eq(0),
-                self.sck.eq(1),
+                self.cs.eq(1),
+                self.sck.eq(0),
                 NextState("INIT")
             )
 
