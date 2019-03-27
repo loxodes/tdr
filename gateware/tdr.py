@@ -8,10 +8,17 @@
 
 from migen import *
 from migen.fhdl import verilog
+from migen.build.platforms import ice40_up5k_b_evn
+from migen.build.generic_platform import *
+
+import pins
+
 from spi import _SPI_TX_Master
 from delay import DelayController
 from uart import UartTx
 from dac import DacController 
+
+DELAY_STEPS = 5
 
 
 class RefSelect(Module):
@@ -27,30 +34,57 @@ class RefSelect(Module):
 def ref_test(dut):
     pass
 
-def tdr_test(dut):
-    for i in range(3000):
+def tdr_test(dut, steps = 10000):
+    for i in range(steps):
         yield
 
 class TDRController(Module):
-    def __init__(self):
-        # external inputs
-        self.comp_in = Signal()
+    def __init__(self, plat = None):
 
-        # external outputs
-        self.delay_sck = Signal()
-        self.delay_en = Signal()
-        self.delay_sdin = Signal()
-        self.delay_sload = Signal()
+        
+        if plat:
+            # external inputs
+            self.comp_in = plat.request("comp_in", 0)
 
-        self.trig_sel = Signal(2)
-        self.ref_sel = Signal()
+            # external outputs
+            self.delay_sck = plat.request("delay_sck", 0) 
+            self.delay_en = plat.request("delay_en", 0)
+            self.delay_sdin = plat.request("delay_sdin", 0)
+            self.delay_sload = plat.request("delay_sload", 0)
 
-        self.dac_clr = Signal()
-        self.dac_cs = Signal()
-        self.dac_sck = Signal() 
-        self.dac_sdi = Signal()
+            self.trig_sel = plat.request("trig_sel")
+            self.ref_sel = plat.request("ref_sel", 0)
 
-        self.uart_tx = Signal()
+            self.dac_clr = plat.request("dac_clr", 0)
+            self.dac_cs =  plat.request("dac_cs", 0)
+            self.dac_sck = plat.request("dac_sck", 0)
+            self.dac_sdi = plat.request("dac_sdi", 0)
+
+            self.uart_tx =  plat.request("uart_tx", 0)
+
+
+
+        else:
+            # external inputs
+            self.comp_in = Signal()
+
+            # external outputs
+            self.delay_sck = Signal()
+            self.delay_en = Signal()
+            self.delay_sdin = Signal()
+            self.delay_sload = Signal()
+
+            self.trig_sel = Signal(2)
+            self.ref_sel = Signal()
+
+            self.dac_clr = Signal()
+            self.dac_cs = Signal()
+            self.dac_sck = Signal() 
+            self.dac_sdi = Signal()
+
+            self.uart_tx = Signal()
+
+
 
         # internal signals
         delay_state = Signal(11)
@@ -168,10 +202,11 @@ class TDRController(Module):
         tdrfsm.act("SEND_VOLTAGE",
             If(uart_tx.ready,
                 # send delay/voltage over uart
-                If(delay_state == 511,
+                uart_tx.data.eq(cmp_voltage >> 4),
+                uart_tx.load.eq(1),
+
+                If(delay_state == DELAY_STEPS,
                     NextState("WAIT_FOR_SWEEP"),
-                    uart_tx.data.eq(cmp_voltage >> 4),
-                    uart_tx.load.eq(1),
                     # if this is the sample in the sweep, return to wait for sweep
                 ).Else(
                     NextState("SET_DELAY"),
@@ -186,29 +221,30 @@ class TDRController(Module):
         )
 
 
-        '''
-            python code
-            for trig_offset in range(NDELAYS):
-                delay.set_b(trig_offset)
-                # binary search trigger voltage
-                cmp_voltage = NDACS / 2
-
-                for i in range(int(log2(NDACS))-2,-1,-1):
-                    dac.set_a(cmp_voltage)
-
-                    if gpio.read_value(COMP_OUT):
-                        cmp_voltage += 1 << i
-                    else:
-                        cmp_voltage -= 1 << i
-
-                sweep[trig_offset] = cmp_voltage
-                print("delay {}, dac {}".format(trig_offset, sweep[trig_offset]))
-        '''
-
-        # return to init state
+    
 
 if __name__ == '__main__':
+
     tdr_dut = TDRController()
-    run_simulation(tdr_dut, tdr_test(tdr_dut), vcd_name="tdr.vcd")
+    run_simulation(tdr_dut, tdr_test(tdr_dut, steps = 300), vcd_name="tdr.vcd")
     verilog.convert(TDRController()).write("tdr.v")
+   
+    plat = ice40_up5k_b_evn.Platform()
+    plat.add_extension([
+        ("comp_in", 0, Pins("J3:3")),
+        ("delay_sck", 0, Pins("J3:4")),
+        ("delay_en", 0, Pins("J3:5")),
+        ("delay_sdin", 0, Pins("J3:6")),
+        ("delay_sload", 0, Pins("J3:7")),
+        ("trig_sel", 0, Pins("J3:8")),
+        ("trig_sel", 1, Pins("J3:9")),
+        ("ref_sel", 0, Pins("J3:10")),
+        ("dac_clr", 0, Pins("J3:11")),
+        ("dac_cs", 0, Pins("J3:12")),
+        ("dac_sck", 0, Pins("J3:13")),
+        ("dac_sdi", 0, Pins("J3:14")),
+        ("uart_tx", 0, Pins("J3:15")),
+    ])
+
+    plat.build(TDRController(plat = plat))
 
