@@ -18,7 +18,6 @@ from delay import DelayController
 from uart import UartTx
 from dac import DacController 
 
-DELAY_STEPS = 5
 
 
 class RefSelect(Module):
@@ -34,17 +33,32 @@ class RefSelect(Module):
 def ref_test(dut):
     pass
 
-def tdr_test(dut, steps = 10000):
-    for i in range(steps):
+def tdr_test(dut):
+    # let dac initialize
+    for d in range(200):
+        yield 
+
+    for analog_value in [100, 500, 900, 3100, 4000]:
+        yield dut.start_sweep.eq(0)
+        yield dut.start_sweep.eq(1)
         yield
+        yield dut.start_sweep.eq(0)
+
+        for d in range(2000):
+            comp_val = dut.cmp_voltage < analog_value
+            yield dut.comp_in.eq(comp_val)
+            yield
 
 class TDRController(Module):
     def __init__(self, plat = None):
+        simulation = (plat == None)
+         
+        DELAY_STEPS = 511
 
-        
-        if plat:
+        if not simulation:
             # external inputs
             self.comp_in = plat.request("comp_in", 0)
+            self.start_sweep = plat.request("start_sweep", 0)
 
             # external outputs
             self.delay_sck = plat.request("delay_sck", 0) 
@@ -67,6 +81,7 @@ class TDRController(Module):
         else:
             # external inputs
             self.comp_in = Signal()
+            self.start_sweep = Signal()
 
             # external outputs
             self.delay_sck = Signal()
@@ -84,11 +99,11 @@ class TDRController(Module):
 
             self.uart_tx = Signal()
 
-
+            DELAY_STEPS = 3
 
         # internal signals
         delay_state = Signal(11)
-        cmp_voltage = Signal(12)
+        self.cmp_voltage = cmp_voltage = Signal(12)
         cmp_bit = Signal(5)
 
         # create dac controller
@@ -119,7 +134,7 @@ class TDRController(Module):
             self.trig_sel.eq(ref_select.trig_sel)]
 
         # create uart tx
-        uart_tx = UartTx()
+        uart_tx = UartTx(sim = simulation)
         self.submodules += uart_tx
         self.comb += [self.uart_tx.eq(uart_tx.tx)]
 
@@ -137,7 +152,7 @@ class TDRController(Module):
         )
 
         tdrfsm.act("WAIT_FOR_SWEEP",
-            If(1,
+            If(self.start_sweep,
                 NextState("START_SWEEP"),
             ).Else(
                 NextState("WAIT_FOR_SWEEP"),
@@ -226,12 +241,13 @@ class TDRController(Module):
 if __name__ == '__main__':
 
     tdr_dut = TDRController()
-    run_simulation(tdr_dut, tdr_test(tdr_dut, steps = 300), vcd_name="tdr.vcd")
+    run_simulation(tdr_dut, tdr_test(tdr_dut), vcd_name="tdr.vcd")
     verilog.convert(TDRController()).write("tdr.v")
    
     plat = ice40_up5k_b_evn.Platform()
     plat.add_extension([
         ("comp_in", 0, Pins("J3:3")),
+        ("start_sweep", 0, Pins("J3:16")),
         ("delay_sck", 0, Pins("J3:4")),
         ("delay_en", 0, Pins("J3:5")),
         ("delay_sdin", 0, Pins("J3:6")),
