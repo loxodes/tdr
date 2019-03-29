@@ -11,7 +11,7 @@ from migen.fhdl import verilog
 
 
 class UartTx(Module):
-    def __init__(self):
+    def __init__(self, sim = False):
         # inputs
         self.data = Signal(8)
         self.load = Signal(1)
@@ -28,7 +28,10 @@ class UartTx(Module):
 
         fpga_clk = 10e6
         baudrate = 9600
+
         tx_divisor = int(fpga_clk / baudrate)
+        if sim:
+            tx_divisor = 3
 
         uartfsm = FSM(reset_state="INIT")
         self.submodules += uartfsm

@@ -44,7 +44,7 @@ def tdr_test(dut):
         yield
         yield dut.start_sweep.eq(0)
 
-        for d in range(2000):
+        for d in range(7000):
             comp_val = dut.cmp_voltage < analog_value
             yield dut.comp_in.eq(comp_val)
             yield
@@ -58,7 +58,7 @@ class TDRController(Module):
         if not simulation:
             # external inputs
             self.comp_in = plat.request("comp_in", 0)
-            self.start_sweep = plat.request("start_sweep", 0)
+            self.start_sweep = plat.request("user_sw", 0)
 
             # external outputs
             self.delay_sck = plat.request("delay_sck", 0) 
@@ -241,8 +241,8 @@ class TDRController(Module):
 if __name__ == '__main__':
 
     tdr_dut = TDRController()
-    run_simulation(tdr_dut, tdr_test(tdr_dut), vcd_name="tdr.vcd")
-    verilog.convert(TDRController()).write("tdr.v")
+    #run_simulation(tdr_dut, tdr_test(tdr_dut), vcd_name="tdr.vcd")
+    #verilog.convert(TDRController()).write("tdr.v")
    
     plat = ice40_up5k_b_evn.Platform()
     plat.add_extension([
@@ -263,4 +263,5 @@ if __name__ == '__main__':
     ])
 
     plat.build(TDRController(plat = plat))
+    plat.create_programmer().flash(0, 'build/top.bin')
 
