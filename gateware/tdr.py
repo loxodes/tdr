@@ -58,9 +58,10 @@ class TDRController(Module):
         if not simulation:
             # external inputs
             self.comp_in = plat.request("comp_in", 0)
-            self.start_sweep = plat.request("user_sw", 0)
 
             # external outputs
+            self.start_sweep = plat.request("start_sweep", 0)
+
             self.delay_sck = plat.request("delay_sck", 0) 
             self.delay_en = plat.request("delay_en", 0)
             self.delay_sdin = plat.request("delay_sdin", 0)
@@ -75,7 +76,10 @@ class TDRController(Module):
             self.dac_sdi = plat.request("dac_sdi", 0)
 
             self.uart_tx =  plat.request("uart_tx", 0)
-
+            
+            self.led = plat.request("rgb_led")
+            self.led_g = self.led.g
+            self.led_b = self.led.b
 
 
         else:
@@ -99,7 +103,11 @@ class TDRController(Module):
 
             self.uart_tx = Signal()
 
+            self.led_g = Signal()
+            self.led_b = Signal()
+
             DELAY_STEPS = 3
+
 
         # internal signals
         delay_state = Signal(11)
@@ -146,17 +154,16 @@ class TDRController(Module):
         tdrfsm.act("INIT",
             If(dac_controller.ready,
                 NextState("WAIT_FOR_SWEEP"),
-            ).Else(
-                NextState("INIT")
             ),
         )
 
         tdrfsm.act("WAIT_FOR_SWEEP",
-            If(self.start_sweep,
-                NextState("START_SWEEP"),
-            ).Else(
-                NextState("WAIT_FOR_SWEEP"),
-            )
+            #If(self.start_sweep,
+            #    NextState("START_SWEEP"),
+            #),
+            self.start_sweep.eq(1),
+            NextState("START_SWEEP"),
+
         )
 
         tdrfsm.act("START_SWEEP",
@@ -164,6 +171,7 @@ class TDRController(Module):
             NextValue(delay_state, 0),
             NextValue(cmp_voltage, 2048),
             NextValue(cmp_bit, 10)
+
         )
 
 
@@ -177,9 +185,9 @@ class TDRController(Module):
             # WAIT FOR DELAY LINES TO FINISH
             If(delay_controller.ready,
                 NextState("SET_VOLTAGE"),
-            ).Else(
-                NextState("WAIT_FOR_DELAY")
-            )
+            ),
+            self.led_b.eq(1),
+
         )
     
         tdrfsm.act("SET_VOLTAGE",
@@ -187,15 +195,17 @@ class TDRController(Module):
             dac_controller.dac_a.eq(cmp_voltage),
             dac_controller.load.eq(1),
             NextState("WAIT_FOR_VOLTAGE"),
+
         )
 
         tdrfsm.act("WAIT_FOR_VOLTAGE",
             If(dac_controller.ready,
                 NextState("MEASURE_VOLTAGE"),
-            ).Else(
-                NextState("WAIT_FOR_VOLTAGE"),
-            )
+            ),
+            self.led_b.eq(1),
         )
+
+        # TODO: add delay to let the DAC settle. how long is this?
 
         tdrfsm.act("MEASURE_VOLTAGE",
             If(self.comp_in,
@@ -230,8 +240,6 @@ class TDRController(Module):
                     NextValue(cmp_bit, 10),
                     # otherwise, increment delay counter, reprogram delay
                 )
-            ).Else(
-                NextState("SEND_VOLTAGE")
             )
         )
 
@@ -246,20 +254,20 @@ if __name__ == '__main__':
    
     plat = ice40_up5k_b_evn.Platform()
     plat.add_extension([
-        ("comp_in", 0, Pins("J3:3")),
-        ("start_sweep", 0, Pins("J3:16")),
-        ("delay_sck", 0, Pins("J3:4")),
-        ("delay_en", 0, Pins("J3:5")),
-        ("delay_sdin", 0, Pins("J3:6")),
-        ("delay_sload", 0, Pins("J3:7")),
-        ("trig_sel", 0, Pins("J3:8")),
-        ("trig_sel", 1, Pins("J3:9")),
-        ("ref_sel", 0, Pins("J3:10")),
-        ("dac_clr", 0, Pins("J3:11")),
-        ("dac_cs", 0, Pins("J3:12")),
-        ("dac_sck", 0, Pins("J3:13")),
-        ("dac_sdi", 0, Pins("J3:14")),
-        ("uart_tx", 0, Pins("J3:15")),
+        ("comp_in", 0, Pins("J3:14")),
+        ("start_sweep", 0, Pins("J3:0")),
+        ("delay_sck", 0, Pins("J3:1")),
+        ("delay_en", 0, Pins("J3:2")),
+        ("delay_sdin", 0, Pins("J3:3")),
+        ("delay_sload", 0, Pins("J3:4")),
+        ("trig_sel", 0, Pins("J3:5")),
+        ("trig_sel", 1, Pins("J3:6")),
+        ("ref_sel", 0, Pins("J3:7")),
+        ("dac_clr", 0, Pins("J3:9")),
+        ("dac_cs", 0, Pins("J3:10")),
+        ("dac_sck", 0, Pins("J3:11")),
+        ("dac_sdi", 0, Pins("J3:12")),
+        ("uart_tx", 0, Pins("J3:13")),
     ])
 
     plat.build(TDRController(plat = plat))

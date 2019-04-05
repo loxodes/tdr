@@ -63,14 +63,11 @@ class DelayController(Module):
                 NextState("LOADA"),
                 NextValue(self.delay1_reg, self.delay1),
                 NextValue(self.delay2_reg, self.delay2)
-            ).Else(
-                NextState("INIT")
-            )
+            ),
         )
 
         # load delay1 bits over spi
         delay_fsm.act("LOADA",
-            self.ready.eq(0),
             self.en.eq(1),
             delay_spi.data_in.eq(Cat(0, 0, self.delay1_reg)),
             delay_spi.load.eq(1),
