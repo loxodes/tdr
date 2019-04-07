@@ -54,6 +54,7 @@ class TDRController(Module):
         simulation = (plat == None)
          
         DELAY_STEPS = 511
+        DAC_SETTLE_CYCLES = int((12e6) * (15e-6))
 
         if not simulation:
             # external inputs
@@ -75,7 +76,9 @@ class TDRController(Module):
             self.dac_sck = plat.request("dac_sck", 0)
             self.dac_sdi = plat.request("dac_sdi", 0)
 
+
             self.uart_tx =  plat.request("uart_tx", 0)
+            self.uart_rx =  plat.request("uart_rx", 0)
             
             self.led = plat.request("rgb_led")
             self.led_g = self.led.g
@@ -102,6 +105,7 @@ class TDRController(Module):
             self.dac_sdi = Signal()
 
             self.uart_tx = Signal()
+            self.uart_rx = Signal()
 
             self.led_g = Signal()
             self.led_b = Signal()
@@ -113,6 +117,7 @@ class TDRController(Module):
         delay_state = Signal(11)
         self.cmp_voltage = cmp_voltage = Signal(12)
         cmp_bit = Signal(5)
+        settle_count = Signal(12)
 
         # create dac controller
         dac_controller = DacController()
@@ -162,8 +167,9 @@ class TDRController(Module):
             #    NextState("START_SWEEP"),
             #),
             self.start_sweep.eq(1),
-            NextState("START_SWEEP"),
-
+            If(self.uart_rx == 0,
+                NextState("START_SWEEP"),
+            ),
         )
 
         tdrfsm.act("START_SWEEP",
@@ -200,12 +206,18 @@ class TDRController(Module):
 
         tdrfsm.act("WAIT_FOR_VOLTAGE",
             If(dac_controller.ready,
-                NextState("MEASURE_VOLTAGE"),
+                NextState("SETTLE_VOLTAGE"),
+                NextValue(settle_count, DAC_SETTLE_CYCLES),
             ),
             self.led_b.eq(1),
         )
 
-        # TODO: add delay to let the DAC settle. how long is this?
+        tdrfsm.act("SETTLE_VOLTAGE",
+            If(settle_count == 0,
+                NextState("MEASURE_VOLTAGE"),
+            ),
+            NextValue(settle_count, settle_count - 1), 
+        )
 
         tdrfsm.act("MEASURE_VOLTAGE",
             If(self.comp_in,
@@ -228,6 +240,7 @@ class TDRController(Module):
             If(uart_tx.ready,
                 # send delay/voltage over uart
                 uart_tx.data.eq(cmp_voltage >> 4),
+                #uart_tx.data.eq(97 + delay_state),
                 uart_tx.load.eq(1),
 
                 If(delay_state == DELAY_STEPS,
@@ -268,6 +281,7 @@ if __name__ == '__main__':
         ("dac_sck", 0, Pins("J3:11")),
         ("dac_sdi", 0, Pins("J3:12")),
         ("uart_tx", 0, Pins("J3:13")),
+        ("uart_rx", 0, Pins("J3:15")),
     ])
 
     plat.build(TDRController(plat = plat))
