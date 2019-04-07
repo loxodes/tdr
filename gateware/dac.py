@@ -36,6 +36,8 @@ class DacController(Module):
         self.dac_b_reg = Signal(12)
         self.dac_reg = Signal(24)
 
+        self.startup_delay = Signal(10)
+
         # load dac over spi
         dac_spi = _SPI_TX_Master(24, rising_data = False)
         self.submodules += dac_spi
@@ -48,12 +50,23 @@ class DacController(Module):
                 self.dac_ready.eq(dac_spi.ready)] 
 
 
-        dacfsm = FSM(reset_state="INIT")
+        dacfsm = FSM(reset_state="STARTUP")
         self.submodules += dacfsm
+        
+        
+        dacfsm.act("STARTUP",
+            NextValue(self.startup_delay, 1000),
+            NextState("INIT"),
+        )
+
+
 
         dacfsm.act("INIT",
             NextValue(self.dac_reg, Cat(0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)),
-            NextState("INIT_LOAD")
+            NextValue(self.startup_delay, self.startup_delay - 1),
+            If(self.startup_delay == 0,
+                NextState("INIT_LOAD"),
+            )
             # enabe internal ref, set dac gain to 1
             # [x x][1 1 1][x x x][x....x 1] enable internal ref
         )

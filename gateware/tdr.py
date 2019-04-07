@@ -28,7 +28,7 @@ class RefSelect(Module):
         
         # for now, hardcode for tdr mode with internal clock
         self.ref_sel.eq(0) # TODO: verify ref sel for internal clock
-        self.trig_sel.eq(3) # TODO: verify ref sel for tdr
+        self.trig_sel.eq(0) # TODO: verify ref sel for tdr
 
 def ref_test(dut):
     pass
@@ -138,6 +138,7 @@ class TDRController(Module):
             self.delay_sload.eq(delay_controller.sload)]
 
         self.comb += delay_controller.delay2.eq(delay_state)
+        self.comb += delay_controller.delay1.eq(0)
 
         # create ref select, assign to external pins
         ref_select = RefSelect()
@@ -167,6 +168,7 @@ class TDRController(Module):
             #    NextState("START_SWEEP"),
             #),
             self.start_sweep.eq(1),
+            #NextState("START_SWEEP"),
             If(self.uart_rx == 0,
                 NextState("START_SWEEP"),
             ),
@@ -199,6 +201,7 @@ class TDRController(Module):
         tdrfsm.act("SET_VOLTAGE",
             # SET VOLTAGE TO CMP_VOLTAGE
             dac_controller.dac_a.eq(cmp_voltage),
+            dac_controller.dac_b.eq(cmp_voltage),
             dac_controller.load.eq(1),
             NextState("WAIT_FOR_VOLTAGE"),
 
