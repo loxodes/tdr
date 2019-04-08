@@ -60,7 +60,7 @@ class DelayController(Module):
             self.ready.eq(1),
 
             If(self.load,
-                NextState("LOADA"),
+                NextState("LOADB"),
                 NextValue(self.delay1_reg, self.delay1),
                 NextValue(self.delay2_reg, self.delay2)
             ),

@@ -3,7 +3,7 @@ from pylab import *
 import pdb
 import time
 
-N_DELAYS = 511
+N_DELAYS = 501
 
 with serial.Serial('/dev/ttyACM1', 230400 * 2) as ser:
     ser.flush()
@@ -14,6 +14,7 @@ with serial.Serial('/dev/ttyACM1', 230400 * 2) as ser:
     sweep = np.frombuffer(sweep, dtype=np.uint8)
     print(sweep)
     print (tend - tstart)
+
 plot(sweep)
 show()
 

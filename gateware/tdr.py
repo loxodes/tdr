@@ -20,15 +20,15 @@ from dac import DacController
 
 
 
-class RefSelect(Module):
-    def __init__(self):
-        # outputs
-        self.ref_sel = Signal(1)
-        self.trig_sel = Signal(2)
-        
-        # for now, hardcode for tdr mode with internal clock
-        self.ref_sel.eq(0) # TODO: verify ref sel for internal clock
-        self.trig_sel.eq(0) # TODO: verify ref sel for tdr
+#class RefSelect(Module):
+#    def __init__(self):
+#        # outputs
+#        self.ref_sel = Signal(1)
+#        self.trig_sel = Signal(2)
+#        
+#        # for now, hardcode for tdr mode with internal clock
+#        self.comb += [self.ref_sel.eq(0)] # TODO: verify ref sel for internal clock
+#        self.comb += [self.trig_sel.eq(0)] # TODO: verify ref sel for tdr
 
 def ref_test(dut):
     pass
@@ -53,8 +53,8 @@ class TDRController(Module):
     def __init__(self, plat = None):
         simulation = (plat == None)
          
-        DELAY_STEPS = 511
-        DAC_SETTLE_CYCLES = int((12e6) * (15e-6))
+        DELAY_STEPS = 500
+        DAC_SETTLE_CYCLES = int((12e6) * (50e-6))
 
         if not simulation:
             # external inputs
@@ -68,7 +68,8 @@ class TDRController(Module):
             self.delay_sdin = plat.request("delay_sdin", 0)
             self.delay_sload = plat.request("delay_sload", 0)
 
-            self.trig_sel = plat.request("trig_sel")
+            self.trig_sel0 = plat.request("trig_sel0", 0)
+            self.trig_sel1 = plat.request("trig_sel1", 0)
             self.ref_sel = plat.request("ref_sel", 0)
 
             self.dac_clr = plat.request("dac_clr", 0)
@@ -96,7 +97,8 @@ class TDRController(Module):
             self.delay_sdin = Signal()
             self.delay_sload = Signal()
 
-            self.trig_sel = Signal(2)
+            self.trig_sel0 = Signal()
+            self.trig_sel1 = Signal()
             self.ref_sel = Signal()
 
             self.dac_clr = Signal()
@@ -117,7 +119,7 @@ class TDRController(Module):
         delay_state = Signal(11)
         self.cmp_voltage = cmp_voltage = Signal(12)
         cmp_bit = Signal(5)
-        settle_count = Signal(12)
+        settle_count = Signal(15)
 
         # create dac controller
         dac_controller = DacController()
@@ -141,11 +143,12 @@ class TDRController(Module):
         self.comb += delay_controller.delay1.eq(0)
 
         # create ref select, assign to external pins
-        ref_select = RefSelect()
-        self.submodules += ref_select
+        #ref_select = RefSelect()
+        #self.submodules += ref_select
         self.comb += [
-            self.ref_sel.eq(ref_select.ref_sel),
-            self.trig_sel.eq(ref_select.trig_sel)]
+            self.ref_sel.eq(0),
+            self.trig_sel0.eq(0),
+            self.trig_sel1.eq(0)]
 
         # create uart tx
         uart_tx = UartTx(sim = simulation)
@@ -164,10 +167,7 @@ class TDRController(Module):
         )
 
         tdrfsm.act("WAIT_FOR_SWEEP",
-            #If(self.start_sweep,
-            #    NextState("START_SWEEP"),
-            #),
-            self.start_sweep.eq(1),
+            #self.start_sweep.eq(1),
             #NextState("START_SWEEP"),
             If(self.uart_rx == 0,
                 NextState("START_SWEEP"),
@@ -200,7 +200,7 @@ class TDRController(Module):
     
         tdrfsm.act("SET_VOLTAGE",
             # SET VOLTAGE TO CMP_VOLTAGE
-            dac_controller.dac_a.eq(cmp_voltage),
+            dac_controller.dac_a.eq(0),
             dac_controller.dac_b.eq(cmp_voltage),
             dac_controller.load.eq(1),
             NextState("WAIT_FOR_VOLTAGE"),
@@ -242,9 +242,13 @@ class TDRController(Module):
         tdrfsm.act("SEND_VOLTAGE",
             If(uart_tx.ready,
                 # send delay/voltage over uart
-                uart_tx.data.eq(cmp_voltage >> 4),
-                #uart_tx.data.eq(97 + delay_state),
                 uart_tx.load.eq(1),
+
+                If(delay_state == DELAY_STEPS,
+                    uart_tx.data.eq(0),
+                ).Else(
+                    uart_tx.data.eq(cmp_voltage[4:]),
+                ),
 
                 If(delay_state == DELAY_STEPS,
                     NextState("WAIT_FOR_SWEEP"),
@@ -276,8 +280,8 @@ if __name__ == '__main__':
         ("delay_en", 0, Pins("J3:2")),
         ("delay_sdin", 0, Pins("J3:3")),
         ("delay_sload", 0, Pins("J3:4")),
-        ("trig_sel", 0, Pins("J3:5")),
-        ("trig_sel", 1, Pins("J3:6")),
+        ("trig_sel0", 0, Pins("J3:5")),
+        ("trig_sel1", 0, Pins("J3:6")),
         ("ref_sel", 0, Pins("J3:7")),
         ("dac_clr", 0, Pins("J3:9")),
         ("dac_cs", 0, Pins("J3:10")),

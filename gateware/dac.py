@@ -67,7 +67,7 @@ class DacController(Module):
             If(self.startup_delay == 0,
                 NextState("INIT_LOAD"),
             )
-            # enabe internal ref, set dac gain to 1
+            # enabe internal ref, set dac gain to 2
             # [x x][1 1 1][x x x][x....x 1] enable internal ref
         )
 
