@@ -5,23 +5,32 @@ import time
 
 N_DELAYS = 501
 
+
 def grab_sweep():
     with serial.Serial('/dev/ttyACM1', 460800, timeout = 10) as ser:
         ser.flush()
         tstart = time.time()
         ser.write(b'a')
-        sweep = ser.read(N_DELAYS)
+        sweep = ser.read(N_DELAYS * 2)
         print("sweep length: {}".format(len(sweep)))
         tend = time.time()
-        sweep = np.frombuffer(sweep, dtype=np.uint8)
+        print("sweep time: {}".format(tend - tstart))
+        sweep = np.frombuffer(sweep, dtype=np.uint16)
         print(sweep)
     return sweep
 
 
-for i in range(5):
+t = arange(N_DELAYS-1) * 11.2e-12
+for i in range(10):
     sweep = grab_sweep()
-    plot(sweep[:-1], 'o')
+    sweep = 4 * ((sweep - 2048.)/4096)
+    #plot(sweep[:-1], 'o')
+    plot(t, sweep[:-1])
 
+grid(True)
+title('falling edge of TDR pulse')
+ylabel('voltage (V)')
+xlabel('time (ns)')
 show()
 
 

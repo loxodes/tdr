@@ -239,7 +239,7 @@ class TDRController(Module):
             NextValue(cmp_bit, cmp_bit -1),
 
             If(cmp_bit == 0,
-                NextState("SEND_VOLTAGE"),
+                NextState("SEND_VOLTAGE_LSB"),
             ).Else(
                 NextState("SET_VOLTAGE"),
             ),
@@ -248,7 +248,7 @@ class TDRController(Module):
 
         tdrfsm.act("MEASURE_VOLTAGE_BRUTE",
             If((self.comp_in == 0) | (cmp_voltage > 3800),
-                NextState("SEND_VOLTAGE"),
+                NextState("SEND_VOLTAGE_LSB"),
                 #NextValue(settle_count, 1000),
             ).Else(
                 NextValue(cmp_voltage, cmp_voltage + 16),
@@ -256,17 +256,7 @@ class TDRController(Module):
             )
         )
 
-
-        #tdrfsm.act("WAIT_FOR_SEND",
-        #    # WAIT FOR DELAY LINES TO FINISH
-        #    NextValue(settle_count, settle_count - 1),
-        #    If(delay_controller.ready & (settle_count == 0),
-        #        NextState("SEND_VOLTAGE"),
-        #    ),
-        #)
-
-
-        tdrfsm.act("SEND_VOLTAGE",
+        tdrfsm.act("SEND_VOLTAGE_LSB",
             If(uart_tx.ready,
                 # send delay/voltage over uart
                 uart_tx.load.eq(1),
@@ -274,10 +264,25 @@ class TDRController(Module):
                 If(delay_state == DELAY_STEPS,
                     uart_tx.data.eq(1),
                 ).Else(
-                    uart_tx.data.eq(cmp_voltage[4:]),
+                    uart_tx.data.eq(cmp_voltage & 0xFF),
                     #uart_tx.data.eq(delay_state & 0xFF),
                 ),
+            
+                NextState("SEND_VOLTAGE_MSB"),
+            )
+        )
 
+        tdrfsm.act("SEND_VOLTAGE_MSB",
+            If(uart_tx.ready,
+                # send delay/voltage over uart
+                uart_tx.load.eq(1),
+
+                If(delay_state == DELAY_STEPS,
+                    uart_tx.data.eq(1),
+                ).Else(
+                    uart_tx.data.eq(cmp_voltage[8:]),
+                ),
+            
                 If(delay_state == DELAY_STEPS,
                     NextState("WAIT_FOR_SWEEP"),
                     # if this is the sample in the sweep, return to wait for sweep
@@ -290,7 +295,9 @@ class TDRController(Module):
                     # otherwise, increment delay counter, reprogram delay
                 )
             )
+
         )
+
 
     
 
