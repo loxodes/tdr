@@ -6,7 +6,7 @@ import time
 N_DELAYS = 501
 
 def grab_sweep():
-    with serial.Serial('/dev/ttyACM1', 38400, timeout = 10) as ser:
+    with serial.Serial('/dev/ttyACM1', 460800, timeout = 10) as ser:
         ser.flush()
         tstart = time.time()
         ser.write(b'a')
@@ -18,7 +18,7 @@ def grab_sweep():
     return sweep
 
 
-for i in range(1):
+for i in range(5):
     sweep = grab_sweep()
     plot(sweep[:-1], 'o')
 

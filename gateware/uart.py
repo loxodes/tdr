@@ -26,8 +26,8 @@ class UartTx(Module):
         self.bitcount = Signal(4)
         self.tx_reg = Signal(8)
 
-        fpga_clk = 12e6
-        baudrate = 38400 
+        fpga_clk = 10e6
+        baudrate = 460800 
 
         tx_divisor = int(fpga_clk / baudrate)
         if sim:
