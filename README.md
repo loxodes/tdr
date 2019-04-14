@@ -1,7 +1,6 @@
 # tdr
 Prototype time domain reflectometer/sampling oscilloscope.
-90 GSPS equivalent time sampling with an actual sampling rate of 30 samples per second. 
-(Once the TDR is controlled it from an FPGA instead of bitbanging from a Beaglebone the sampling rate might be closer to 1 kS/s.)
+90 gigasamples/second equivalent time sampling with an actual sampling rate of 5 kilosamples/second.
 
 The input bandwidth is TBD, maybe 8 GHz?
 
