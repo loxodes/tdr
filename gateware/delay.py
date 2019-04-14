@@ -60,7 +60,7 @@ class DelayController(Module):
             self.ready.eq(1),
 
             If(self.load,
-                NextState("LOADB"),
+                NextState("LOADA"),
                 NextValue(self.delay1_reg, self.delay1),
                 NextValue(self.delay2_reg, self.delay2)
             ),
@@ -84,11 +84,19 @@ class DelayController(Module):
             ),
 
             If(delay_spi.ready,
-                NextState("LOADB")
+                NextState("ENDA")
             ).Else(
                 NextState("WAITA")
             )
         )
+
+        delay_fsm.act("ENDA",
+            self.ready.eq(0),
+            self.en.eq(0),
+            NextState("LOADB")
+        )
+
+
 
         # send delay2 bits over spi
         delay_fsm.act("LOADB",

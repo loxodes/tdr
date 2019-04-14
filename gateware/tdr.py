@@ -53,8 +53,9 @@ class TDRController(Module):
     def __init__(self, plat = None):
         simulation = (plat == None)
          
-        DELAY_STEPS = 500
-        DAC_SETTLE_CYCLES = int((12e6) * (50e-6))
+        DELAY_STEPS = 500 
+        DAC_SETTLE_CYCLES = int((12e6) * (10e-6))
+        DELAY_SETTLE_CYCLES = int((12e6) * (10e-6))
 
         if not simulation:
             # external inputs
@@ -81,10 +82,6 @@ class TDRController(Module):
             self.uart_tx =  plat.request("uart_tx", 0)
             self.uart_rx =  plat.request("uart_rx", 0)
             
-            self.led = plat.request("rgb_led")
-            self.led_g = self.led.g
-            self.led_b = self.led.b
-
 
         else:
             # external inputs
@@ -109,9 +106,6 @@ class TDRController(Module):
             self.uart_tx = Signal()
             self.uart_rx = Signal()
 
-            self.led_g = Signal()
-            self.led_b = Signal()
-
             DELAY_STEPS = 3
 
 
@@ -119,7 +113,7 @@ class TDRController(Module):
         delay_state = Signal(11)
         self.cmp_voltage = cmp_voltage = Signal(12)
         cmp_bit = Signal(5)
-        settle_count = Signal(15)
+        settle_count = Signal(16)
 
         # create dac controller
         dac_controller = DacController()
@@ -167,7 +161,7 @@ class TDRController(Module):
         )
 
         tdrfsm.act("WAIT_FOR_SWEEP",
-            #self.start_sweep.eq(1),
+            self.start_sweep.eq(1),
             #NextState("START_SWEEP"),
             If(self.uart_rx == 0,
                 NextState("START_SWEEP"),
@@ -177,7 +171,8 @@ class TDRController(Module):
         tdrfsm.act("START_SWEEP",
             NextState("SET_DELAY"),
             NextValue(delay_state, 0),
-            NextValue(cmp_voltage, 2048),
+            #NextValue(cmp_voltage, 2048),
+            NextValue(cmp_voltage, 0),
             NextValue(cmp_bit, 10)
 
         )
@@ -187,15 +182,15 @@ class TDRController(Module):
             # PROGRAM DELAY LINES 
             NextState("WAIT_FOR_DELAY"),
             delay_controller.load.eq(1),
+            NextValue(settle_count, DELAY_SETTLE_CYCLES),
         )
 
         tdrfsm.act("WAIT_FOR_DELAY",
             # WAIT FOR DELAY LINES TO FINISH
-            If(delay_controller.ready,
+            NextValue(settle_count, settle_count - 1),
+            If(delay_controller.ready & (settle_count == 0),
                 NextState("SET_VOLTAGE"),
             ),
-            self.led_b.eq(1),
-
         )
     
         tdrfsm.act("SET_VOLTAGE",
@@ -212,23 +207,24 @@ class TDRController(Module):
                 NextState("SETTLE_VOLTAGE"),
                 NextValue(settle_count, DAC_SETTLE_CYCLES),
             ),
-            self.led_b.eq(1),
         )
+
 
         tdrfsm.act("SETTLE_VOLTAGE",
             If(settle_count == 0,
-                NextState("MEASURE_VOLTAGE"),
+                NextState("MEASURE_VOLTAGE_BRUTE"),
             ),
             NextValue(settle_count, settle_count - 1), 
         )
 
-        tdrfsm.act("MEASURE_VOLTAGE",
+        tdrfsm.act("MEASURE_VOLTAGE_BINARY",
             If(self.comp_in,
                 NextValue(cmp_voltage, cmp_voltage + (1 << cmp_bit))
             ).Else(
                 NextValue(cmp_voltage, cmp_voltage - (1 << cmp_bit))
                 
             ),
+
 
             NextValue(cmp_bit, cmp_bit -1),
 
@@ -239,15 +235,37 @@ class TDRController(Module):
             ),
         )
 
+
+        tdrfsm.act("MEASURE_VOLTAGE_BRUTE",
+            If((self.comp_in == 0) | (cmp_voltage > 3800),
+                NextState("WAIT_FOR_SEND"),
+                NextValue(settle_count, 1000),
+            ).Else(
+                NextValue(cmp_voltage, cmp_voltage + 16),
+                NextState("SET_VOLTAGE"),
+            )
+        )
+
+
+        tdrfsm.act("WAIT_FOR_SEND",
+            # WAIT FOR DELAY LINES TO FINISH
+            NextValue(settle_count, settle_count - 1),
+            If(delay_controller.ready & (settle_count == 0),
+                NextState("SEND_VOLTAGE"),
+            ),
+        )
+
+
         tdrfsm.act("SEND_VOLTAGE",
             If(uart_tx.ready,
                 # send delay/voltage over uart
                 uart_tx.load.eq(1),
 
                 If(delay_state == DELAY_STEPS,
-                    uart_tx.data.eq(0),
+                    uart_tx.data.eq(1),
                 ).Else(
                     uart_tx.data.eq(cmp_voltage[4:]),
+                    #uart_tx.data.eq(delay_state),
                 ),
 
                 If(delay_state == DELAY_STEPS,
@@ -256,7 +274,8 @@ class TDRController(Module):
                 ).Else(
                     NextState("SET_DELAY"),
                     NextValue(delay_state, delay_state + 1),
-                    NextValue(cmp_voltage, 2048),
+                    #NextValue(cmp_voltage, 2048),
+                    NextValue(cmp_voltage, 0),
                     NextValue(cmp_bit, 10),
                     # otherwise, increment delay counter, reprogram delay
                 )
@@ -268,7 +287,7 @@ class TDRController(Module):
 
 if __name__ == '__main__':
 
-    tdr_dut = TDRController()
+    #tdr_dut = TDRController()
     #run_simulation(tdr_dut, tdr_test(tdr_dut), vcd_name="tdr.vcd")
     #verilog.convert(TDRController()).write("tdr.v")
    

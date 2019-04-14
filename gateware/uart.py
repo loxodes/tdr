@@ -27,7 +27,7 @@ class UartTx(Module):
         self.tx_reg = Signal(8)
 
         fpga_clk = 12e6
-        baudrate = 230400 * 2
+        baudrate = 38400 
 
         tx_divisor = int(fpga_clk / baudrate)
         if sim:
@@ -70,7 +70,7 @@ class UartTx(Module):
                 NextValue(self.tx_count, self.tx_count - 1),
             ),
 
-            If(self.bitcount == 0 and self.tx_count == 0,
+            If((self.bitcount == 0) and (self.tx_count == 0),
                 NextState("ENDBIT")
             ).Else(
                 NextState("SENDBIT")
